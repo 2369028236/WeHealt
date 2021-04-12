@@ -1,0 +1,10 @@
+com\guigu\mapper\CheckGroupMapper.class
+com\guigu\mapper\OrderMapper.class
+com\guigu\mapper\RoleMapper.class
+com\guigu\mapper\UserMapper.class
+com\guigu\mapper\MemberMapper.class
+com\guigu\mapper\PermissionMapper.class
+com\guigu\mapper\CheckItemMapper.class
+com\guigu\mapper\SetMealMapper.class
+com\guigu\mapper\MenuMapper.class
+com\guigu\mapper\OrderSettingMapper.class

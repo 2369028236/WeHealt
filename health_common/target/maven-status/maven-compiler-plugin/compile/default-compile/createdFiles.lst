@@ -1,0 +1,5 @@
+com\guigu\constant\RedisConstant.class
+com\guigu\exception\HealthException.class
+com\guigu\utils\POIUtils.class
+com\guigu\utils\QiNiuUtils.class
+com\guigu\constant\MessageConstant.class

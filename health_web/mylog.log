@@ -1,0 +1,589 @@
+09:17:10,787  INFO LoggerFactory:? - using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+09:17:10,936  INFO ServiceAnnotationBeanPostProcessor:190 -  [DUBBO] BeanNameGenerator bean can't be found in BeanFactory with name [org.springframework.context.annotation.internalConfigurationBeanNameGenerator], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:10,936  INFO ServiceAnnotationBeanPostProcessor:192 -  [DUBBO] BeanNameGenerator will be a instance of org.springframework.context.annotation.AnnotationBeanNameGenerator , it maybe a potential problem on bean name generation., dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:10,938  WARN ServiceAnnotationBeanPostProcessor:155 -  [DUBBO] No Spring Bean annotating Dubbo's @Service was found under package[com.health.controller], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:11,015 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Protocol$Adaptive implements com.alibaba.dubbo.rpc.Protocol {
+public void destroy() {throw new UnsupportedOperationException("method public abstract void com.alibaba.dubbo.rpc.Protocol.destroy() of interface com.alibaba.dubbo.rpc.Protocol is not adaptive method!");
+}
+public int getDefaultPort() {throw new UnsupportedOperationException("method public abstract int com.alibaba.dubbo.rpc.Protocol.getDefaultPort() of interface com.alibaba.dubbo.rpc.Protocol is not adaptive method!");
+}
+public com.alibaba.dubbo.rpc.Invoker refer(java.lang.Class arg0, com.alibaba.dubbo.common.URL arg1) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg1 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg1;
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.Protocol) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.Protocol extension = (com.alibaba.dubbo.rpc.Protocol)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.Protocol.class).getExtension(extName);
+return extension.refer(arg0, arg1);
+}
+public com.alibaba.dubbo.rpc.Exporter export(com.alibaba.dubbo.rpc.Invoker arg0) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument == null");
+if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.Protocol) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.Protocol extension = (com.alibaba.dubbo.rpc.Protocol)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.Protocol.class).getExtension(extName);
+return extension.export(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:11,097 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc.cluster;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Cluster$Adaptive implements com.alibaba.dubbo.rpc.cluster.Cluster {
+public com.alibaba.dubbo.rpc.Invoker join(com.alibaba.dubbo.rpc.cluster.Directory arg0) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.cluster.Directory argument == null");
+if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.cluster.Directory argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+String extName = url.getParameter("cluster", "failover");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.cluster.Cluster) name from url(" + url.toString() + ") use keys([cluster])");
+com.alibaba.dubbo.rpc.cluster.Cluster extension = (com.alibaba.dubbo.rpc.cluster.Cluster)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.Cluster.class).getExtension(extName);
+return extension.join(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:11,108 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ProxyFactory$Adaptive implements com.alibaba.dubbo.rpc.ProxyFactory {
+public java.lang.Object getProxy(com.alibaba.dubbo.rpc.Invoker arg0) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument == null");
+if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+String extName = url.getParameter("proxy", "javassist");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.ProxyFactory) name from url(" + url.toString() + ") use keys([proxy])");
+com.alibaba.dubbo.rpc.ProxyFactory extension = (com.alibaba.dubbo.rpc.ProxyFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.ProxyFactory.class).getExtension(extName);
+return extension.getProxy(arg0);
+}
+public com.alibaba.dubbo.rpc.Invoker getInvoker(java.lang.Object arg0, java.lang.Class arg1, com.alibaba.dubbo.common.URL arg2) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg2 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg2;
+String extName = url.getParameter("proxy", "javassist");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.ProxyFactory) name from url(" + url.toString() + ") use keys([proxy])");
+com.alibaba.dubbo.rpc.ProxyFactory extension = (com.alibaba.dubbo.rpc.ProxyFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.ProxyFactory.class).getExtension(extName);
+return extension.getInvoker(arg0, arg1, arg2);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:11,207 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.registry;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class RegistryFactory$Adaptive implements com.alibaba.dubbo.registry.RegistryFactory {
+public com.alibaba.dubbo.registry.Registry getRegistry(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.registry.RegistryFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.registry.RegistryFactory extension = (com.alibaba.dubbo.registry.RegistryFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.registry.RegistryFactory.class).getExtension(extName);
+return extension.getRegistry(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:11,220 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.remoting.zookeeper;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ZookeeperTransporter$Adaptive implements com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter {
+public com.alibaba.dubbo.remoting.zookeeper.ZookeeperClient connect(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("client", url.getParameter("transporter", "curator"));
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter) name from url(" + url.toString() + ") use keys([client, transporter])");
+com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter extension = (com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter.class).getExtension(extName);
+return extension.connect(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:11,239  INFO ZookeeperRegistry:200 -  [DUBBO] Load registry store file C:\Users\23690\.dubbo\dubbo-registry-health_web-127.0.0.1:2181.cache, data: {com.guigu.service.UserService=empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=5484&revision=1.0-SNAPSHOT&side=consumer&timestamp=1617153054957 empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=5484&revision=1.0-SNAPSHOT&side=consumer&timestamp=1617153054957 dubbo://192.168.137.1:20880/com.guigu.service.UserService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=20000&side=provider&timestamp=1617152324648, com.guigu.service.CheckItemService=empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=5484&revision=1.0-SNAPSHOT&side=consumer&timestamp=1617153054912 empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=5484&revision=1.0-SNAPSHOT&side=consumer&timestamp=1617153054912 dubbo://192.168.137.1:20880/com.guigu.service.CheckItemService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=20000&side=provider&timestamp=1617152334304, com.guigu.service.CheckGroupService=empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=5484&revision=1.0-SNAPSHOT&side=consumer&timestamp=1617153045381 empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=5484&revision=1.0-SNAPSHOT&side=consumer&timestamp=1617153045381 dubbo://192.168.137.1:20880/com.guigu.service.CheckGroupService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=20000&side=provider&timestamp=1617152334279}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,636 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc.cluster;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class RouterFactory$Adaptive implements com.alibaba.dubbo.rpc.cluster.RouterFactory {
+public com.alibaba.dubbo.rpc.cluster.Router getRouter(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getProtocol();
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.cluster.RouterFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.cluster.RouterFactory extension = (com.alibaba.dubbo.rpc.cluster.RouterFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.RouterFactory.class).getExtension(extName);
+return extension.getRouter(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,643 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc.cluster;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ConfiguratorFactory$Adaptive implements com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory {
+public com.alibaba.dubbo.rpc.cluster.Configurator getConfigurator(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getProtocol();
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory extension = (com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory.class).getExtension(extName);
+return extension.getConfigurator(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,652  INFO ZookeeperRegistry:273 -  [DUBBO] Register: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,677  INFO ZookeeperRegistry:298 -  [DUBBO] Subscribe: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,691  INFO ZookeeperRegistry:387 -  [DUBBO] Notify urls for subscribe url consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178, urls: [empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178, empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178, empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,695  INFO AbstractConfig:425 -  [DUBBO] Refer dubbo service com.guigu.service.CheckGroupService from url zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&register.ip=192.168.137.1&side=consumer&timestamp=1617153431178, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,708  INFO ZookeeperRegistry:273 -  [DUBBO] Register: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,711  INFO ZookeeperRegistry:298 -  [DUBBO] Subscribe: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,718  INFO ZookeeperRegistry:387 -  [DUBBO] Notify urls for subscribe url consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, urls: [empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,718  INFO AbstractConfig:425 -  [DUBBO] Refer dubbo service com.guigu.service.CheckItemService from url zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&register.ip=192.168.137.1&side=consumer&timestamp=1617153440703, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,726  INFO ZookeeperRegistry:273 -  [DUBBO] Register: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,729  INFO ZookeeperRegistry:298 -  [DUBBO] Subscribe: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,735  INFO ZookeeperRegistry:387 -  [DUBBO] Notify urls for subscribe url consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, urls: [empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:20,735  INFO AbstractConfig:425 -  [DUBBO] Refer dubbo service com.guigu.service.UserService from url zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&register.ip=192.168.137.1&side=consumer&timestamp=1617153440723, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,065  INFO AbstractConfig:81 -  [DUBBO] Run shutdown hook now., dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,066  INFO AbstractRegistryFactory:64 -  [DUBBO] Close all registries [zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?application=health_web&dubbo=2.6.2&interface=com.alibaba.dubbo.registry.RegistryService&pid=16808&timestamp=1617153431201], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,066  INFO ZookeeperRegistry:451 -  [DUBBO] Destroy registry:zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?application=health_web&dubbo=2.6.2&interface=com.alibaba.dubbo.registry.RegistryService&pid=16808&timestamp=1617153431201, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,066  INFO ZookeeperRegistry:284 -  [DUBBO] Unregister: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,079  INFO ZookeeperRegistry:460 -  [DUBBO] Destroy unregister url consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,079  INFO ZookeeperRegistry:284 -  [DUBBO] Unregister: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,081  INFO ZookeeperRegistry:460 -  [DUBBO] Destroy unregister url consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,081  INFO ZookeeperRegistry:284 -  [DUBBO] Unregister: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,083  INFO ZookeeperRegistry:460 -  [DUBBO] Destroy unregister url consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,084  INFO ZookeeperRegistry:317 -  [DUBBO] Unsubscribe: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,084  INFO ZookeeperRegistry:476 -  [DUBBO] Destroy unsubscribe url consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,084  INFO ZookeeperRegistry:317 -  [DUBBO] Unsubscribe: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,085  INFO ZookeeperRegistry:476 -  [DUBBO] Destroy unsubscribe url consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,085  INFO ZookeeperRegistry:317 -  [DUBBO] Unsubscribe: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:21,085  INFO ZookeeperRegistry:476 -  [DUBBO] Destroy unsubscribe url consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:43,053  INFO LoggerFactory:? - using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+09:17:43,197  INFO ServiceAnnotationBeanPostProcessor:190 -  [DUBBO] BeanNameGenerator bean can't be found in BeanFactory with name [org.springframework.context.annotation.internalConfigurationBeanNameGenerator], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:43,197  INFO ServiceAnnotationBeanPostProcessor:192 -  [DUBBO] BeanNameGenerator will be a instance of org.springframework.context.annotation.AnnotationBeanNameGenerator , it maybe a potential problem on bean name generation., dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:43,198  WARN ServiceAnnotationBeanPostProcessor:155 -  [DUBBO] No Spring Bean annotating Dubbo's @Service was found under package[com.health.controller], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:43,265 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Protocol$Adaptive implements com.alibaba.dubbo.rpc.Protocol {
+public void destroy() {throw new UnsupportedOperationException("method public abstract void com.alibaba.dubbo.rpc.Protocol.destroy() of interface com.alibaba.dubbo.rpc.Protocol is not adaptive method!");
+}
+public int getDefaultPort() {throw new UnsupportedOperationException("method public abstract int com.alibaba.dubbo.rpc.Protocol.getDefaultPort() of interface com.alibaba.dubbo.rpc.Protocol is not adaptive method!");
+}
+public com.alibaba.dubbo.rpc.Invoker refer(java.lang.Class arg0, com.alibaba.dubbo.common.URL arg1) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg1 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg1;
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.Protocol) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.Protocol extension = (com.alibaba.dubbo.rpc.Protocol)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.Protocol.class).getExtension(extName);
+return extension.refer(arg0, arg1);
+}
+public com.alibaba.dubbo.rpc.Exporter export(com.alibaba.dubbo.rpc.Invoker arg0) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument == null");
+if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.Protocol) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.Protocol extension = (com.alibaba.dubbo.rpc.Protocol)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.Protocol.class).getExtension(extName);
+return extension.export(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:43,390 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc.cluster;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Cluster$Adaptive implements com.alibaba.dubbo.rpc.cluster.Cluster {
+public com.alibaba.dubbo.rpc.Invoker join(com.alibaba.dubbo.rpc.cluster.Directory arg0) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.cluster.Directory argument == null");
+if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.cluster.Directory argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+String extName = url.getParameter("cluster", "failover");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.cluster.Cluster) name from url(" + url.toString() + ") use keys([cluster])");
+com.alibaba.dubbo.rpc.cluster.Cluster extension = (com.alibaba.dubbo.rpc.cluster.Cluster)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.Cluster.class).getExtension(extName);
+return extension.join(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:43,401 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ProxyFactory$Adaptive implements com.alibaba.dubbo.rpc.ProxyFactory {
+public java.lang.Object getProxy(com.alibaba.dubbo.rpc.Invoker arg0) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument == null");
+if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+String extName = url.getParameter("proxy", "javassist");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.ProxyFactory) name from url(" + url.toString() + ") use keys([proxy])");
+com.alibaba.dubbo.rpc.ProxyFactory extension = (com.alibaba.dubbo.rpc.ProxyFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.ProxyFactory.class).getExtension(extName);
+return extension.getProxy(arg0);
+}
+public com.alibaba.dubbo.rpc.Invoker getInvoker(java.lang.Object arg0, java.lang.Class arg1, com.alibaba.dubbo.common.URL arg2) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg2 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg2;
+String extName = url.getParameter("proxy", "javassist");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.ProxyFactory) name from url(" + url.toString() + ") use keys([proxy])");
+com.alibaba.dubbo.rpc.ProxyFactory extension = (com.alibaba.dubbo.rpc.ProxyFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.ProxyFactory.class).getExtension(extName);
+return extension.getInvoker(arg0, arg1, arg2);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:43,490 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.registry;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class RegistryFactory$Adaptive implements com.alibaba.dubbo.registry.RegistryFactory {
+public com.alibaba.dubbo.registry.Registry getRegistry(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.registry.RegistryFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.registry.RegistryFactory extension = (com.alibaba.dubbo.registry.RegistryFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.registry.RegistryFactory.class).getExtension(extName);
+return extension.getRegistry(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:43,503 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.remoting.zookeeper;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ZookeeperTransporter$Adaptive implements com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter {
+public com.alibaba.dubbo.remoting.zookeeper.ZookeeperClient connect(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("client", url.getParameter("transporter", "curator"));
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter) name from url(" + url.toString() + ") use keys([client, transporter])");
+com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter extension = (com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter.class).getExtension(extName);
+return extension.connect(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:43,526  INFO ZookeeperRegistry:200 -  [DUBBO] Load registry store file C:\Users\23690\.dubbo\dubbo-registry-health_web-127.0.0.1:2181.cache, data: {com.guigu.service.UserService=empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723 empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723 empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=16808&side=consumer&timestamp=1617153440723, com.guigu.service.CheckItemService=empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703 empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703 empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=16808&side=consumer&timestamp=1617153440703, com.guigu.service.CheckGroupService=empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178 empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178 empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=16808&side=consumer&timestamp=1617153431178}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:52,963 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc.cluster;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class RouterFactory$Adaptive implements com.alibaba.dubbo.rpc.cluster.RouterFactory {
+public com.alibaba.dubbo.rpc.cluster.Router getRouter(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getProtocol();
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.cluster.RouterFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.cluster.RouterFactory extension = (com.alibaba.dubbo.rpc.cluster.RouterFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.RouterFactory.class).getExtension(extName);
+return extension.getRouter(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:52,969 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc.cluster;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ConfiguratorFactory$Adaptive implements com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory {
+public com.alibaba.dubbo.rpc.cluster.Configurator getConfigurator(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getProtocol();
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory extension = (com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory.class).getExtension(extName);
+return extension.getConfigurator(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:52,979  INFO ZookeeperRegistry:273 -  [DUBBO] Register: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,006  INFO ZookeeperRegistry:298 -  [DUBBO] Subscribe: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,020  INFO ZookeeperRegistry:387 -  [DUBBO] Notify urls for subscribe url consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465, urls: [dubbo://192.168.137.1:20880/com.guigu.service.CheckGroupService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=22316&side=provider&timestamp=1617153461923, empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465, empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,031 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.remoting;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Transporter$Adaptive implements com.alibaba.dubbo.remoting.Transporter {
+public com.alibaba.dubbo.remoting.Client connect(com.alibaba.dubbo.common.URL arg0, com.alibaba.dubbo.remoting.ChannelHandler arg1) throws com.alibaba.dubbo.remoting.RemotingException {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("client", url.getParameter("transporter", "netty"));
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.remoting.Transporter) name from url(" + url.toString() + ") use keys([client, transporter])");
+com.alibaba.dubbo.remoting.Transporter extension = (com.alibaba.dubbo.remoting.Transporter)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.remoting.Transporter.class).getExtension(extName);
+return extension.connect(arg0, arg1);
+}
+public com.alibaba.dubbo.remoting.Server bind(com.alibaba.dubbo.common.URL arg0, com.alibaba.dubbo.remoting.ChannelHandler arg1) throws com.alibaba.dubbo.remoting.RemotingException {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("server", url.getParameter("transporter", "netty"));
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.remoting.Transporter) name from url(" + url.toString() + ") use keys([server, transporter])");
+com.alibaba.dubbo.remoting.Transporter extension = (com.alibaba.dubbo.remoting.Transporter)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.remoting.Transporter.class).getExtension(extName);
+return extension.bind(arg0, arg1);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,053 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.remoting;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Dispatcher$Adaptive implements com.alibaba.dubbo.remoting.Dispatcher {
+public com.alibaba.dubbo.remoting.ChannelHandler dispatch(com.alibaba.dubbo.remoting.ChannelHandler arg0, com.alibaba.dubbo.common.URL arg1) {
+if (arg1 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg1;
+String extName = url.getParameter("dispatcher", url.getParameter("dispather", url.getParameter("channel.handler", "all")));
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.remoting.Dispatcher) name from url(" + url.toString() + ") use keys([dispatcher, dispather, channel.handler])");
+com.alibaba.dubbo.remoting.Dispatcher extension = (com.alibaba.dubbo.remoting.Dispatcher)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.remoting.Dispatcher.class).getExtension(extName);
+return extension.dispatch(arg0, arg1);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,060 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.common.threadpool;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ThreadPool$Adaptive implements com.alibaba.dubbo.common.threadpool.ThreadPool {
+public java.util.concurrent.Executor getExecutor(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("threadpool", "fixed");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.common.threadpool.ThreadPool) name from url(" + url.toString() + ") use keys([threadpool])");
+com.alibaba.dubbo.common.threadpool.ThreadPool extension = (com.alibaba.dubbo.common.threadpool.ThreadPool)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.common.threadpool.ThreadPool.class).getExtension(extName);
+return extension.getExecutor(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,115  INFO AbstractClient:282 -  [DUBBO] Successed connect to server /192.168.137.1:20880 from NettyClient 192.168.137.1 using dubbo version 2.6.2, channel is NettyChannel [channel=[id: 0x24111ef1, /192.168.137.1:60028 => /192.168.137.1:20880]], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,116  INFO AbstractClient:91 -  [DUBBO] Start NettyClient DESKTOP-TU5009D/192.168.137.1 connect to the server /192.168.137.1:20880, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,129 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.cache;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class CacheFactory$Adaptive implements com.alibaba.dubbo.cache.CacheFactory {
+public com.alibaba.dubbo.cache.Cache getCache(com.alibaba.dubbo.common.URL arg0, com.alibaba.dubbo.rpc.Invocation arg1) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+if (arg1 == null) throw new IllegalArgumentException("invocation == null");
+String methodName = arg1.getMethodName();
+String extName = url.getMethodParameter(methodName, "cache", "lru");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.cache.CacheFactory) name from url(" + url.toString() + ") use keys([cache])");
+com.alibaba.dubbo.cache.CacheFactory extension = (com.alibaba.dubbo.cache.CacheFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.cache.CacheFactory.class).getExtension(extName);
+return extension.getCache(arg0, arg1);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,136 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.monitor;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class MonitorFactory$Adaptive implements com.alibaba.dubbo.monitor.MonitorFactory {
+public com.alibaba.dubbo.monitor.Monitor getMonitor(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.monitor.MonitorFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.monitor.MonitorFactory extension = (com.alibaba.dubbo.monitor.MonitorFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.monitor.MonitorFactory.class).getExtension(extName);
+return extension.getMonitor(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,142 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.validation;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Validation$Adaptive implements com.alibaba.dubbo.validation.Validation {
+public com.alibaba.dubbo.validation.Validator getValidator(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("validation", "jvalidation");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.validation.Validation) name from url(" + url.toString() + ") use keys([validation])");
+com.alibaba.dubbo.validation.Validation extension = (com.alibaba.dubbo.validation.Validation)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.validation.Validation.class).getExtension(extName);
+return extension.getValidator(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,151  INFO AbstractConfig:425 -  [DUBBO] Refer dubbo service com.guigu.service.CheckGroupService from url zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&register.ip=192.168.137.1&remote.timestamp=1617153461923&side=consumer&timestamp=1617153463465, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,164  INFO ZookeeperRegistry:273 -  [DUBBO] Register: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,172  INFO ZookeeperRegistry:298 -  [DUBBO] Subscribe: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,180  INFO ZookeeperRegistry:387 -  [DUBBO] Notify urls for subscribe url consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158, urls: [dubbo://192.168.137.1:20880/com.guigu.service.CheckItemService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=22316&side=provider&timestamp=1617153461953, empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158, empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,181  INFO AbstractConfig:425 -  [DUBBO] Refer dubbo service com.guigu.service.CheckItemService from url zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&register.ip=192.168.137.1&remote.timestamp=1617153461953&side=consumer&timestamp=1617153473158, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,189  INFO ZookeeperRegistry:273 -  [DUBBO] Register: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,191  INFO ZookeeperRegistry:298 -  [DUBBO] Subscribe: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,199  INFO ZookeeperRegistry:387 -  [DUBBO] Notify urls for subscribe url consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185, urls: [dubbo://192.168.137.1:20880/com.guigu.service.UserService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=22316&side=provider&timestamp=1617153452332, empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185, empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,199  INFO AbstractConfig:425 -  [DUBBO] Refer dubbo service com.guigu.service.UserService from url zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&register.ip=192.168.137.1&remote.timestamp=1617153452332&side=consumer&timestamp=1617153473185, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,465  INFO AbstractConfig:81 -  [DUBBO] Run shutdown hook now., dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,466  INFO AbstractRegistryFactory:64 -  [DUBBO] Close all registries [zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?application=health_web&dubbo=2.6.2&interface=com.alibaba.dubbo.registry.RegistryService&pid=10380&timestamp=1617153463485], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,466  INFO ZookeeperRegistry:451 -  [DUBBO] Destroy registry:zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?application=health_web&dubbo=2.6.2&interface=com.alibaba.dubbo.registry.RegistryService&pid=10380&timestamp=1617153463485, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,466  INFO ZookeeperRegistry:284 -  [DUBBO] Unregister: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,477  INFO ZookeeperRegistry:460 -  [DUBBO] Destroy unregister url consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,477  INFO ZookeeperRegistry:284 -  [DUBBO] Unregister: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,480  INFO ZookeeperRegistry:460 -  [DUBBO] Destroy unregister url consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,480  INFO ZookeeperRegistry:284 -  [DUBBO] Unregister: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,482  INFO ZookeeperRegistry:460 -  [DUBBO] Destroy unregister url consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,483  INFO ZookeeperRegistry:317 -  [DUBBO] Unsubscribe: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,483  INFO ZookeeperRegistry:476 -  [DUBBO] Destroy unsubscribe url consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,483  INFO ZookeeperRegistry:317 -  [DUBBO] Unsubscribe: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,483  INFO ZookeeperRegistry:476 -  [DUBBO] Destroy unsubscribe url consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,483  INFO ZookeeperRegistry:317 -  [DUBBO] Unsubscribe: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,484  INFO ZookeeperRegistry:476 -  [DUBBO] Destroy unsubscribe url consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,488  INFO DubboProtocol:438 -  [DUBBO] Close dubbo connect: /192.168.137.1:60028-->/192.168.137.1:20880, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,488  INFO DubboProtocol:63 -  [DUBBO] Destroy reference: dubbo://192.168.137.1:20880/com.guigu.service.CheckGroupService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&register.ip=192.168.137.1&remote.timestamp=1617153461923&side=consumer&timestamp=1617153463465, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,489  INFO DubboProtocol:63 -  [DUBBO] Destroy reference: dubbo://192.168.137.1:20880/com.guigu.service.CheckItemService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&register.ip=192.168.137.1&remote.timestamp=1617153461953&side=consumer&timestamp=1617153473158, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,491  INFO NettyChannel:138 -  [DUBBO] Close netty channel [id: 0x24111ef1, /192.168.137.1:60028 => /192.168.137.1:20880], dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,492  INFO DubboProtocol:127 -  [DUBBO] disconnected from /192.168.137.1:20880,url:dubbo://192.168.137.1:20880/com.guigu.service.CheckGroupService?anyhost=true&application=health_web&check=false&codec=dubbo&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&heartbeat=60000&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&register.ip=192.168.137.1&remote.timestamp=1617153461923&side=consumer&timestamp=1617153463465, dubbo version: 2.6.2, current host: 192.168.137.1
+09:17:53,493  INFO DubboProtocol:63 -  [DUBBO] Destroy reference: dubbo://192.168.137.1:20880/com.guigu.service.UserService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&register.ip=192.168.137.1&remote.timestamp=1617153452332&side=consumer&timestamp=1617153473185, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:38,122  INFO LoggerFactory:? - using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+09:19:38,260  INFO ServiceAnnotationBeanPostProcessor:190 -  [DUBBO] BeanNameGenerator bean can't be found in BeanFactory with name [org.springframework.context.annotation.internalConfigurationBeanNameGenerator], dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:38,261  INFO ServiceAnnotationBeanPostProcessor:192 -  [DUBBO] BeanNameGenerator will be a instance of org.springframework.context.annotation.AnnotationBeanNameGenerator , it maybe a potential problem on bean name generation., dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:38,262  WARN ServiceAnnotationBeanPostProcessor:155 -  [DUBBO] No Spring Bean annotating Dubbo's @Service was found under package[com.health.controller], dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:38,326 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Protocol$Adaptive implements com.alibaba.dubbo.rpc.Protocol {
+public void destroy() {throw new UnsupportedOperationException("method public abstract void com.alibaba.dubbo.rpc.Protocol.destroy() of interface com.alibaba.dubbo.rpc.Protocol is not adaptive method!");
+}
+public int getDefaultPort() {throw new UnsupportedOperationException("method public abstract int com.alibaba.dubbo.rpc.Protocol.getDefaultPort() of interface com.alibaba.dubbo.rpc.Protocol is not adaptive method!");
+}
+public com.alibaba.dubbo.rpc.Invoker refer(java.lang.Class arg0, com.alibaba.dubbo.common.URL arg1) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg1 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg1;
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.Protocol) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.Protocol extension = (com.alibaba.dubbo.rpc.Protocol)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.Protocol.class).getExtension(extName);
+return extension.refer(arg0, arg1);
+}
+public com.alibaba.dubbo.rpc.Exporter export(com.alibaba.dubbo.rpc.Invoker arg0) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument == null");
+if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.Protocol) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.Protocol extension = (com.alibaba.dubbo.rpc.Protocol)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.Protocol.class).getExtension(extName);
+return extension.export(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:38,418 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc.cluster;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Cluster$Adaptive implements com.alibaba.dubbo.rpc.cluster.Cluster {
+public com.alibaba.dubbo.rpc.Invoker join(com.alibaba.dubbo.rpc.cluster.Directory arg0) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.cluster.Directory argument == null");
+if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.cluster.Directory argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+String extName = url.getParameter("cluster", "failover");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.cluster.Cluster) name from url(" + url.toString() + ") use keys([cluster])");
+com.alibaba.dubbo.rpc.cluster.Cluster extension = (com.alibaba.dubbo.rpc.cluster.Cluster)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.Cluster.class).getExtension(extName);
+return extension.join(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:38,433 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ProxyFactory$Adaptive implements com.alibaba.dubbo.rpc.ProxyFactory {
+public java.lang.Object getProxy(com.alibaba.dubbo.rpc.Invoker arg0) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument == null");
+if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+String extName = url.getParameter("proxy", "javassist");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.ProxyFactory) name from url(" + url.toString() + ") use keys([proxy])");
+com.alibaba.dubbo.rpc.ProxyFactory extension = (com.alibaba.dubbo.rpc.ProxyFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.ProxyFactory.class).getExtension(extName);
+return extension.getProxy(arg0);
+}
+public com.alibaba.dubbo.rpc.Invoker getInvoker(java.lang.Object arg0, java.lang.Class arg1, com.alibaba.dubbo.common.URL arg2) throws com.alibaba.dubbo.rpc.RpcException {
+if (arg2 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg2;
+String extName = url.getParameter("proxy", "javassist");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.ProxyFactory) name from url(" + url.toString() + ") use keys([proxy])");
+com.alibaba.dubbo.rpc.ProxyFactory extension = (com.alibaba.dubbo.rpc.ProxyFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.ProxyFactory.class).getExtension(extName);
+return extension.getInvoker(arg0, arg1, arg2);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:38,524 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.registry;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class RegistryFactory$Adaptive implements com.alibaba.dubbo.registry.RegistryFactory {
+public com.alibaba.dubbo.registry.Registry getRegistry(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.registry.RegistryFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.registry.RegistryFactory extension = (com.alibaba.dubbo.registry.RegistryFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.registry.RegistryFactory.class).getExtension(extName);
+return extension.getRegistry(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:38,538 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.remoting.zookeeper;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ZookeeperTransporter$Adaptive implements com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter {
+public com.alibaba.dubbo.remoting.zookeeper.ZookeeperClient connect(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("client", url.getParameter("transporter", "curator"));
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter) name from url(" + url.toString() + ") use keys([client, transporter])");
+com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter extension = (com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter.class).getExtension(extName);
+return extension.connect(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:38,557  INFO ZookeeperRegistry:200 -  [DUBBO] Load registry store file C:\Users\23690\.dubbo\dubbo-registry-health_web-127.0.0.1:2181.cache, data: {com.guigu.service.UserService=empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185 empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=10380&side=consumer&timestamp=1617153473185 dubbo://192.168.137.1:20880/com.guigu.service.UserService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=22316&side=provider&timestamp=1617153452332, com.guigu.service.CheckItemService=empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158 empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=10380&side=consumer&timestamp=1617153473158 dubbo://192.168.137.1:20880/com.guigu.service.CheckItemService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=22316&side=provider&timestamp=1617153461953, com.guigu.service.CheckGroupService=empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465 empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=10380&side=consumer&timestamp=1617153463465 dubbo://192.168.137.1:20880/com.guigu.service.CheckGroupService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=22316&side=provider&timestamp=1617153461923}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:47,994 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc.cluster;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class RouterFactory$Adaptive implements com.alibaba.dubbo.rpc.cluster.RouterFactory {
+public com.alibaba.dubbo.rpc.cluster.Router getRouter(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getProtocol();
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.cluster.RouterFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.cluster.RouterFactory extension = (com.alibaba.dubbo.rpc.cluster.RouterFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.RouterFactory.class).getExtension(extName);
+return extension.getRouter(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,005 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.rpc.cluster;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ConfiguratorFactory$Adaptive implements com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory {
+public com.alibaba.dubbo.rpc.cluster.Configurator getConfigurator(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getProtocol();
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory extension = (com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.ConfiguratorFactory.class).getExtension(extName);
+return extension.getConfigurator(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,011  INFO ZookeeperRegistry:273 -  [DUBBO] Register: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&side=consumer&timestamp=1617153578498, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,035  INFO ZookeeperRegistry:298 -  [DUBBO] Subscribe: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&side=consumer&timestamp=1617153578498, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,050  INFO ZookeeperRegistry:387 -  [DUBBO] Notify urls for subscribe url consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&side=consumer&timestamp=1617153578498, urls: [dubbo://192.168.137.1:20880/com.guigu.service.CheckGroupService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=22316&side=provider&timestamp=1617153461923, empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&side=consumer&timestamp=1617153578498, empty://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&side=consumer&timestamp=1617153578498], dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,062 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.remoting;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Transporter$Adaptive implements com.alibaba.dubbo.remoting.Transporter {
+public com.alibaba.dubbo.remoting.Client connect(com.alibaba.dubbo.common.URL arg0, com.alibaba.dubbo.remoting.ChannelHandler arg1) throws com.alibaba.dubbo.remoting.RemotingException {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("client", url.getParameter("transporter", "netty"));
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.remoting.Transporter) name from url(" + url.toString() + ") use keys([client, transporter])");
+com.alibaba.dubbo.remoting.Transporter extension = (com.alibaba.dubbo.remoting.Transporter)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.remoting.Transporter.class).getExtension(extName);
+return extension.connect(arg0, arg1);
+}
+public com.alibaba.dubbo.remoting.Server bind(com.alibaba.dubbo.common.URL arg0, com.alibaba.dubbo.remoting.ChannelHandler arg1) throws com.alibaba.dubbo.remoting.RemotingException {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("server", url.getParameter("transporter", "netty"));
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.remoting.Transporter) name from url(" + url.toString() + ") use keys([server, transporter])");
+com.alibaba.dubbo.remoting.Transporter extension = (com.alibaba.dubbo.remoting.Transporter)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.remoting.Transporter.class).getExtension(extName);
+return extension.bind(arg0, arg1);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,085 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.remoting;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Dispatcher$Adaptive implements com.alibaba.dubbo.remoting.Dispatcher {
+public com.alibaba.dubbo.remoting.ChannelHandler dispatch(com.alibaba.dubbo.remoting.ChannelHandler arg0, com.alibaba.dubbo.common.URL arg1) {
+if (arg1 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg1;
+String extName = url.getParameter("dispatcher", url.getParameter("dispather", url.getParameter("channel.handler", "all")));
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.remoting.Dispatcher) name from url(" + url.toString() + ") use keys([dispatcher, dispather, channel.handler])");
+com.alibaba.dubbo.remoting.Dispatcher extension = (com.alibaba.dubbo.remoting.Dispatcher)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.remoting.Dispatcher.class).getExtension(extName);
+return extension.dispatch(arg0, arg1);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,092 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.common.threadpool;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class ThreadPool$Adaptive implements com.alibaba.dubbo.common.threadpool.ThreadPool {
+public java.util.concurrent.Executor getExecutor(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("threadpool", "fixed");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.common.threadpool.ThreadPool) name from url(" + url.toString() + ") use keys([threadpool])");
+com.alibaba.dubbo.common.threadpool.ThreadPool extension = (com.alibaba.dubbo.common.threadpool.ThreadPool)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.common.threadpool.ThreadPool.class).getExtension(extName);
+return extension.getExecutor(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,148  INFO AbstractClient:282 -  [DUBBO] Successed connect to server /192.168.137.1:20880 from NettyClient 192.168.137.1 using dubbo version 2.6.2, channel is NettyChannel [channel=[id: 0x24111ef1, /192.168.137.1:60302 => /192.168.137.1:20880]], dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,149  INFO AbstractClient:91 -  [DUBBO] Start NettyClient DESKTOP-TU5009D/192.168.137.1 connect to the server /192.168.137.1:20880, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,162 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.cache;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class CacheFactory$Adaptive implements com.alibaba.dubbo.cache.CacheFactory {
+public com.alibaba.dubbo.cache.Cache getCache(com.alibaba.dubbo.common.URL arg0, com.alibaba.dubbo.rpc.Invocation arg1) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+if (arg1 == null) throw new IllegalArgumentException("invocation == null");
+String methodName = arg1.getMethodName();
+String extName = url.getMethodParameter(methodName, "cache", "lru");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.cache.CacheFactory) name from url(" + url.toString() + ") use keys([cache])");
+com.alibaba.dubbo.cache.CacheFactory extension = (com.alibaba.dubbo.cache.CacheFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.cache.CacheFactory.class).getExtension(extName);
+return extension.getCache(arg0, arg1);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,168 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.monitor;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class MonitorFactory$Adaptive implements com.alibaba.dubbo.monitor.MonitorFactory {
+public com.alibaba.dubbo.monitor.Monitor getMonitor(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.monitor.MonitorFactory) name from url(" + url.toString() + ") use keys([protocol])");
+com.alibaba.dubbo.monitor.MonitorFactory extension = (com.alibaba.dubbo.monitor.MonitorFactory)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.monitor.MonitorFactory.class).getExtension(extName);
+return extension.getMonitor(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,173 DEBUG ExtensionLoader:941 -  [DUBBO] package com.alibaba.dubbo.validation;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+public class Validation$Adaptive implements com.alibaba.dubbo.validation.Validation {
+public com.alibaba.dubbo.validation.Validator getValidator(com.alibaba.dubbo.common.URL arg0) {
+if (arg0 == null) throw new IllegalArgumentException("url == null");
+com.alibaba.dubbo.common.URL url = arg0;
+String extName = url.getParameter("validation", "jvalidation");
+if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.validation.Validation) name from url(" + url.toString() + ") use keys([validation])");
+com.alibaba.dubbo.validation.Validation extension = (com.alibaba.dubbo.validation.Validation)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.validation.Validation.class).getExtension(extName);
+return extension.getValidator(arg0);
+}
+}, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,182  INFO AbstractConfig:425 -  [DUBBO] Refer dubbo service com.guigu.service.CheckGroupService from url zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&register.ip=192.168.137.1&remote.timestamp=1617153461923&side=consumer&timestamp=1617153578498, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,194  INFO ZookeeperRegistry:273 -  [DUBBO] Register: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&side=consumer&timestamp=1617153588190, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,202  INFO ZookeeperRegistry:298 -  [DUBBO] Subscribe: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&side=consumer&timestamp=1617153588190, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,210  INFO ZookeeperRegistry:387 -  [DUBBO] Notify urls for subscribe url consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&side=consumer&timestamp=1617153588190, urls: [dubbo://192.168.137.1:20880/com.guigu.service.CheckItemService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=22316&side=provider&timestamp=1617153461953, empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&side=consumer&timestamp=1617153588190, empty://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&side=consumer&timestamp=1617153588190], dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,212  INFO AbstractConfig:425 -  [DUBBO] Refer dubbo service com.guigu.service.CheckItemService from url zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&register.ip=192.168.137.1&remote.timestamp=1617153461953&side=consumer&timestamp=1617153588190, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,222  INFO ZookeeperRegistry:273 -  [DUBBO] Register: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&side=consumer&timestamp=1617153588218, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,225  INFO ZookeeperRegistry:298 -  [DUBBO] Subscribe: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&side=consumer&timestamp=1617153588218, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,235  INFO ZookeeperRegistry:387 -  [DUBBO] Notify urls for subscribe url consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&side=consumer&timestamp=1617153588218, urls: [dubbo://192.168.137.1:20880/com.guigu.service.UserService?anyhost=true&application=health_service&dubbo=2.6.2&generic=false&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=22316&side=provider&timestamp=1617153452332, empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=configurators&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&side=consumer&timestamp=1617153588218, empty://192.168.137.1/com.guigu.service.UserService?application=health_web&category=routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&side=consumer&timestamp=1617153588218], dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,236  INFO AbstractConfig:425 -  [DUBBO] Refer dubbo service com.guigu.service.UserService from url zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&register.ip=192.168.137.1&remote.timestamp=1617153452332&side=consumer&timestamp=1617153588218, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,600 DEBUG DecodeHandler:59 -  [DUBBO] Decode decodeable message com.alibaba.dubbo.rpc.protocol.dubbo.DecodeableRpcResult, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,602  INFO AbstractConfig:81 -  [DUBBO] Run shutdown hook now., dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,602  INFO AbstractRegistryFactory:64 -  [DUBBO] Close all registries [zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?application=health_web&dubbo=2.6.2&interface=com.alibaba.dubbo.registry.RegistryService&pid=19512&timestamp=1617153578518], dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,603  INFO ZookeeperRegistry:451 -  [DUBBO] Destroy registry:zookeeper://127.0.0.1:2181/com.alibaba.dubbo.registry.RegistryService?application=health_web&dubbo=2.6.2&interface=com.alibaba.dubbo.registry.RegistryService&pid=19512&timestamp=1617153578518, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,603  INFO ZookeeperRegistry:284 -  [DUBBO] Unregister: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&side=consumer&timestamp=1617153588218, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,612  INFO ZookeeperRegistry:460 -  [DUBBO] Destroy unregister url consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&side=consumer&timestamp=1617153588218, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,613  INFO ZookeeperRegistry:284 -  [DUBBO] Unregister: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&side=consumer&timestamp=1617153588190, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,615  INFO ZookeeperRegistry:460 -  [DUBBO] Destroy unregister url consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&side=consumer&timestamp=1617153588190, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,615  INFO ZookeeperRegistry:284 -  [DUBBO] Unregister: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&side=consumer&timestamp=1617153578498, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,617  INFO ZookeeperRegistry:460 -  [DUBBO] Destroy unregister url consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=consumers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&side=consumer&timestamp=1617153578498, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,617  INFO ZookeeperRegistry:317 -  [DUBBO] Unsubscribe: consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&side=consumer&timestamp=1617153578498, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,618  INFO ZookeeperRegistry:476 -  [DUBBO] Destroy unsubscribe url consumer://192.168.137.1/com.guigu.service.CheckGroupService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&side=consumer&timestamp=1617153578498, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,618  INFO ZookeeperRegistry:317 -  [DUBBO] Unsubscribe: consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&side=consumer&timestamp=1617153588218, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,618  INFO ZookeeperRegistry:476 -  [DUBBO] Destroy unsubscribe url consumer://192.168.137.1/com.guigu.service.UserService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&side=consumer&timestamp=1617153588218, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,618  INFO ZookeeperRegistry:317 -  [DUBBO] Unsubscribe: consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&side=consumer&timestamp=1617153588190, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,618  INFO ZookeeperRegistry:476 -  [DUBBO] Destroy unsubscribe url consumer://192.168.137.1/com.guigu.service.CheckItemService?application=health_web&category=providers,configurators,routers&check=false&default.check=false&default.retries=3&dubbo=2.6.2&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&side=consumer&timestamp=1617153588190, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,622  INFO DubboProtocol:438 -  [DUBBO] Close dubbo connect: /192.168.137.1:60302-->/192.168.137.1:20880, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,622  INFO DubboProtocol:63 -  [DUBBO] Destroy reference: dubbo://192.168.137.1:20880/com.guigu.service.CheckGroupService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&register.ip=192.168.137.1&remote.timestamp=1617153461923&side=consumer&timestamp=1617153578498, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,622  INFO DubboProtocol:63 -  [DUBBO] Destroy reference: dubbo://192.168.137.1:20880/com.guigu.service.CheckItemService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.CheckItemService&methods=s,getAllCheckItem&pid=19512&register.ip=192.168.137.1&remote.timestamp=1617153461953&side=consumer&timestamp=1617153588190, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,623  INFO NettyChannel:138 -  [DUBBO] Close netty channel [id: 0x24111ef1, /192.168.137.1:60302 => /192.168.137.1:20880], dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,624  INFO DubboProtocol:127 -  [DUBBO] disconnected from /192.168.137.1:20880,url:dubbo://192.168.137.1:20880/com.guigu.service.CheckGroupService?anyhost=true&application=health_web&check=false&codec=dubbo&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&heartbeat=60000&interface=com.guigu.service.CheckGroupService&methods=getAllCheckGroup&pid=19512&register.ip=192.168.137.1&remote.timestamp=1617153461923&side=consumer&timestamp=1617153578498, dubbo version: 2.6.2, current host: 192.168.137.1
+09:19:48,625  INFO DubboProtocol:63 -  [DUBBO] Destroy reference: dubbo://192.168.137.1:20880/com.guigu.service.UserService?anyhost=true&application=health_web&check=false&default.check=false&default.retries=3&dubbo=2.6.2&generic=false&interface=com.guigu.service.UserService&methods=addUser,getUser&pid=19512&register.ip=192.168.137.1&remote.timestamp=1617153452332&side=consumer&timestamp=1617153588218, dubbo version: 2.6.2, current host: 192.168.137.1
