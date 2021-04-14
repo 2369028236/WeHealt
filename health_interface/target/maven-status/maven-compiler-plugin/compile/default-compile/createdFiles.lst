@@ -1,4 +1,5 @@
 com\guigu\service\SetmealService.class
+com\guigu\service\memberService.class
 com\guigu\service\CheckGroupService.class
 com\guigu\service\CheckItemService.class
 com\guigu\service\OrderSettingService.class
