@@ -4,6 +4,7 @@ import com.guigu.entity.Result;
 import com.guigu.exception.HealthException;
 import com.guigu.mapper.OrderSettingMapper;
 import com.guigu.pojo.OrderSetting;
+import com.guigu.pojo.OrderSettingExample;
 import com.guigu.service.OrderSettingService;
 import com.sun.media.jfxmediaimpl.HostUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +103,11 @@ public class OrderSettingServiceImpl implements OrderSettingService {
         }else {
             throw new HealthException("预约人数不能超过最大预约人数！");
         }
+    }
+
+    @Override
+    public List<OrderSetting> selectByExample(OrderSettingExample example) throws HealthException {
+
+        return orderSettingMapper.selectByExample(example);
     }
 }

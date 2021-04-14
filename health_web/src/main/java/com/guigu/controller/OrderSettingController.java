@@ -5,6 +5,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.guigu.constant.MessageConstant;
 import com.guigu.entity.Result;
 import com.guigu.pojo.OrderSetting;
+import com.guigu.pojo.OrderSettingExample;
 import com.guigu.service.OrderSettingService;
 import com.guigu.utils.POIUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,5 +85,9 @@ public class OrderSettingController {
 // 调用服务更新
         orderSettingService.editReservationsByOrderDate(orderSetting);
         return new Result(true, MessageConstant.ORDERSETTING_SUCCESS);
+    }
+    @RequestMapping("/selectByExample")
+    public List<OrderSetting> selectByExample(OrderSettingExample example){
+        return orderSettingService.selectByExample(example);
     }
 }
