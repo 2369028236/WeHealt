@@ -106,8 +106,12 @@ public class OrderSettingServiceImpl implements OrderSettingService {
     }
 
     @Override
-    public List<OrderSetting> selectByExample(OrderSettingExample example) throws HealthException {
+    public List<OrderSetting> selectByExample1(OrderSettingExample example) throws HealthException {
 
-        return orderSettingMapper.selectByExample(example);
+        return orderSettingMapper.selectByExample1(example);
+    }
+
+    @Override public List<Map<String, Object>> findSetmealCount() {
+        return orderSettingMapper.findSetmealCount();
     }
 }

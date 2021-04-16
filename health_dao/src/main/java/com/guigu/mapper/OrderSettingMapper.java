@@ -21,6 +21,10 @@ public interface OrderSettingMapper {
 
     List<OrderSetting> selectByExample(OrderSettingExample example);
 
+    List<OrderSetting> selectByExample1(OrderSettingExample example);
+
+    List<Map<String, Object>> findSetmealCount();
+
     OrderSetting selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") OrderSetting record, @Param("example") OrderSettingExample example);

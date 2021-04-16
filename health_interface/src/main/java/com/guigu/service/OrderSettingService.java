@@ -20,7 +20,9 @@ public interface OrderSettingService {
 
     void editReservationsByOrderDate(OrderSetting orderSetting) throws HealthException;
 
-    List<OrderSetting> selectByExample(OrderSettingExample example) throws HealthException;
+    List<OrderSetting> selectByExample1(OrderSettingExample example) throws HealthException;
+
+    List<Map<String, Object>> findSetmealCount();
 }
 
 
