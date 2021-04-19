@@ -43,7 +43,7 @@ public class OrderController {
         member.setPhoneNumber((String) map.get("phoneNumber"));
         member.setRegTime(ft.parse(String.valueOf(map.get("regTime"))));
         member.setEmail((String) map.get("email"));
-        if (memberService.getMemberByIdCard(member.getIdCard())==null){
+        if (memberService.getMemberByIdCard(member.getIdCard())!=null){
             return new Result(false, MessageConstant.HAS_ORDERED);
         }
       OrderSetting orderSetting= orderSettingService.getOrderSettingByDate(member.getRegTime());
