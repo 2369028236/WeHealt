@@ -4,6 +4,7 @@ import com.guigu.exception.HealthException;
 import com.guigu.pojo.OrderSetting;
 import com.guigu.pojo.OrderSettingExample;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,9 @@ public interface OrderSettingService {
     void editReservationsByOrderDate(OrderSetting orderSetting) throws HealthException;
 
     List<OrderSetting> selectByExample(OrderSettingExample example) throws HealthException;
+
+    OrderSetting getOrderSettingByDate(Date date);
+
 }
 
 

@@ -7,6 +7,7 @@ import com.guigu.pojo.User;
 import com.guigu.service.UserService;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,7 +35,7 @@ public class UserController {
         if (userName==null||userName==""){
             if (passWord==null||passWord==""){
                 if (session.getAttribute("user")!=null){
-                    return "main";
+                    return "/user/userMain";
                 }else {
                     return "redirect:/login.html";
                 }
@@ -44,7 +45,7 @@ public class UserController {
        User userList= userService.getUser(userName,passWord);
        if (userList!=null){
            session.setAttribute("user",userList);
-           return "main";
+           return "/user/userMain";
        }else {
            return "redirect:/login.html";
        }

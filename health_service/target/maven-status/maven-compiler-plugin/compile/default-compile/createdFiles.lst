@@ -1,4 +1,6 @@
 com\guigu\app\ProviderMain.class
+com\guigu\service\Impl\MemberServiceImpl.class
+com\guigu\service\Impl\OrderServiceImpl.class
 com\guigu\service\Impl\CheckGroupServiceImpl.class
 com\guigu\service\Impl\OrderSettingServiceImpl.class
 com\guigu\service\Impl\CheckItemServiceImpl.class

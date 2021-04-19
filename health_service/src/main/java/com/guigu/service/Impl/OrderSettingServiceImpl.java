@@ -1,21 +1,14 @@
 package com.guigu.service.Impl;
 
-import com.guigu.entity.Result;
 import com.guigu.exception.HealthException;
 import com.guigu.mapper.OrderSettingMapper;
 import com.guigu.pojo.OrderSetting;
 import com.guigu.pojo.OrderSettingExample;
 import com.guigu.service.OrderSettingService;
-import com.sun.media.jfxmediaimpl.HostUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OrderSettingServiceImpl implements OrderSettingService {
     @Autowired
@@ -107,7 +100,14 @@ public class OrderSettingServiceImpl implements OrderSettingService {
 
     @Override
     public List<OrderSetting> selectByExample(OrderSettingExample example) throws HealthException {
-
         return orderSettingMapper.selectByExample(example);
+    }
+
+    @Override
+    public OrderSetting getOrderSettingByDate(Date date) {
+        OrderSettingExample orderSettingExample=new OrderSettingExample();
+        OrderSettingExample.Criteria e=orderSettingExample.createCriteria();
+        e.andOrderDateEqualTo(date);
+        return orderSettingMapper.selectByExample(orderSettingExample).get(0);
     }
 }
