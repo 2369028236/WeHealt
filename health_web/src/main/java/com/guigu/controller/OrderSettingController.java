@@ -2,23 +2,18 @@ package com.guigu.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 
+import com.alibaba.fastjson.JSON;
 import com.guigu.constant.MessageConstant;
 import com.guigu.entity.Result;
 import com.guigu.pojo.OrderSetting;
 import com.guigu.pojo.OrderSettingExample;
 import com.guigu.service.OrderSettingService;
 import com.guigu.utils.POIUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/ordersetting")
@@ -87,7 +82,35 @@ public class OrderSettingController {
         return new Result(true, MessageConstant.ORDERSETTING_SUCCESS);
     }
     @RequestMapping("/selectByExample")
-    public List<OrderSetting> selectByExample(OrderSettingExample example){
-        return orderSettingService.selectByExample(example);
+    public String selectByExample(OrderSettingExample example){
+        List<OrderSetting> orderSettingList= orderSettingService.selectByExample1(example);
+        Map map=new HashMap();
+        map.put("orderSettingList",orderSettingList);
+        String stm= JSON.toJSONString(map);
+        return stm;
     }
+
+    @GetMapping("/getSetmealReport")
+    public Result getSetmealReport(){
+        // 调用服务查询 // 套餐数量
+        List<Map<String,Object>> setmealCount = orderSettingService.findSetmealCount();
+        // 套餐名称集合
+        List<String> setmealNames = new ArrayList<String>();
+
+        // [{name:,value}]
+        // 抽取套餐名称
+        if(null != setmealCount){
+            for (Map<String, Object> map : setmealCount) {
+                //map {name:,value}
+                // 获取套餐的名称
+                setmealNames.add((String) map.get("name"));
+            }
+        }
+        // 封装返回的结果
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("setmealNames",setmealNames);
+        resultMap.put("setmealCount",setmealCount);
+        return new Result(true, MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS,resultMap);
+    }
+
 }

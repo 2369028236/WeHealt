@@ -214,4 +214,12 @@ update t_ordersetting set reservations=reservations+#{reservations} where orderD
       reservations = #{reservations,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByExample1" parameterType="com.guigu.pojo.OrderSettingExample" resultMap="BaseResultMap">
+    SELECT * FROM t_ordersetting ORDER BY   orderDate DESC LIMIT 1,15
+  </select>
+
+  <select id="findSetmealCount" resultType="map">
+      select s.name,t.value from t_setmeal s, ( select setmeal_id,count(1)
+      value from t_order group by setmeal_id ) t where s.id=t.setmeal_id
+  </select>
 </mapper>
