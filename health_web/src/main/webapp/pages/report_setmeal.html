@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="app-container">
+    <div class="box">
+        <div id="chart1" style="height: 600px;"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/echarts.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+
+<script type="text/javascript">
+    var myChart1=echarts.init(document.getElementById('chart1'));
+    axios.get("/ordersetting/getSetmealReport").then((res)=>{
+        if(res.data.flag){
+            myChart1.setOption({
+                title:{
+                    text:'套餐预约比',
+                    subtext:'',
+                    x:'center'
+                },
+                tooltip:{
+                    trigger:'item',
+                    formatter:"{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend:{
+                    orient:'vertical',
+                    left:'left',
+                    data:res.data.data.setmealNames
+                },
+                series:[
+                    {
+                        name:'套餐预约占比',
+                        type:'pie',
+                        radius:'55%',
+                        center:['50%','60%'],
+                        data:res.data.data.setmealCount,
+                        itemStyle:{
+                            emphasis:{
+                                shadowBlur:10,
+                                shadowOffsetX:0,
+                                shadowColor:'rgba(0,0,0,0.5)'
+                            }
+                        }
+                    }
+                ]
+            })
+        }else {
+            alert(res.data.message);
+        }
+    });
+</script>
+
+</body>
+</html>
