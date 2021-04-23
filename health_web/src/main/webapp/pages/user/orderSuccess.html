@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
 <div id="app">
@@ -11,35 +14,103 @@
                 :data="tableData"
                 style="width: 100%">
             <el-table-column
-                    prop="date"
-                    label="日期"
+                    prop="orderDate"
+                    label="预约日期"
                     width="180">
             </el-table-column>
             <el-table-column
-                    prop="name"
-                    label="姓名"
-                    width="180">
+                    prop="orderType"
+                    label="预约类型">
             </el-table-column>
-            <el-table-column
-                    prop="address"
-                    label="地址">
+        </el-table>
+        <el-table size="small" current-row-key="id" :data="formData" stripe highlight-current-row>
+            <el-table-column prop="email" label="邮箱" align="center">
             </el-table-column>
+            <el-table-column prop="name" label="姓名" align="center"></el-table-column>
+            <el-table-column prop="idCard" label="身份证" align="center"></el-table-column>
+            <el-table-column label="适用性别" align="center">
+                <template slot-scope="scope">
+                    <span>{{ scope.row.sex == '0' ? '不限' : scope.row.sex == '1' ? '男' : '女'}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column prop="phoneNumber" label="电话号码" align="center"></el-table-column>
+        </el-table>
+        <el-table size="small" current-row-key="id" :data="tableData2" stripe highlight-current-row>
+            <el-table-column prop="img" label="" align="center">
+                <template   slot-scope="scope">
+                    <img :src="scope.row.img"  min-width="70" height="70" />
+                </template>
+            </el-table-column>
+            <el-table-column prop="name" label="套餐名称" align="center"></el-table-column>
+            <el-table-column prop="price" label="价格" align="center"></el-table-column>
+            <el-table-column label="适用性别" align="center">
+                <template slot-scope="scope">
+                    <span>{{ scope.row.sex == '0' ? '不限' : scope.row.sex == '1' ? '男' : '女'}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column prop="remark" label="套餐说明" align="center"></el-table-column>
+            <el-table-column prop="attention" label="注意事项" align="center"></el-table-column>
         </el-table>
     </template>
 </div>
 <script src="../../js/vue.js"></script>
 <script src="../../plugins/elementui/index.js"></script>
+<script src="../../js/axios-0.18.0.js"></script>
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
 <script>
     new Vue({
-        el:"app",
+        el:"#app",
         data:{
-            formData: {},//表单数据
+            tableData:[],
+            tableData2:[{}],
+            formData: [{}],//表单数据
+            pagination: {//分页相关模型数据
+                currentPage: 1,//当前页码
+                pageSize:10,//每页显示的记录数
+                total:0,//总记录数
+                queryString:null,//查询条件
+                id:0,
+            },
+            imageUrl:"http://qr4o4iyfe.hd-bkt.clouddn.com/"
         },
-        method:{
-            findPage(){
-
-            }
+        created(){
+            var category=window.location.search;
+            var cateval = category.substring(category.lastIndexOf('=')+1, category.length);
+            this.pagination.id=cateval;
+            this.getOrder();
+           this.findPage();
+        },
+        methods: {
+            getOrder(){
+                axios.post('/order/getOrder',{
+                    id: this.pagination.id
+                }).then(res => {
+                    if (res.data.flag){
+                        this.tableData = res.data.data;
+                        axios.post('/member/getMember',{
+                            id:this.tableData[0].member_id
+                        }).then(res => {
+                            if (res.data.flag) {
+                                this.formData[0] = res.data.data;
+                                console.log(this.formData)
+                            } else {
+                                this.$message.error(res.data.message);
+                            }
+                        })
+                        axios.get('/setmeal/findById?id='+this.tableData[0].setmeal_id).then(res => {
+                            if (res.data.flag) {
+                                this.tableData2[0] = res.data.data.setmeal;
+                                this.tableData2[0].img=this.imageUrl+ this.tableData2[0].img;
+                            } else {
+                                this.$message.error(res.data.message);
+                            }
+                        })
+                    } else {
+                        this.$message.error(res.data.message);
+                    }
+                })
+            },
         }
 
 

@@ -19,18 +19,6 @@ public class CheckGroupController {
     @Reference
    private CheckGroupService checkGroupService;
 
-    @ResponseBody
-    @RequestMapping(value = "getAllCheckGroup")
-    public Object getAllCheckGroup(){
-      List<CheckGroup> list= checkGroupService.getAllCheckGroup();
-      if (!list.isEmpty()){
-          String s = JSONObject.toJSONString(list);
-          return s;
-      }else {
-          return null;
-      }
-    }
-
     /*** 添加检查组 * @param checkGroup * @param checkitemIds * @return */
     @PostMapping("/add")
     public Result add(@RequestBody CheckGroup checkGroup, Integer[] checkitemIds) { // 调用业务服务

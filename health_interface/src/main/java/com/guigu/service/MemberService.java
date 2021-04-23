@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface MemberService {
     void addMember(Member member);
-    Member getMember(String phone);
     Member getMemberByIdCard(String IdCard);
+    Member getMemberById(Integer id);
+    int deleteByPrimaryKey(Integer id);
 }

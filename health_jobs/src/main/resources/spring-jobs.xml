@@ -35,4 +35,5 @@ http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubb
             </list>
         </property>
     </bean>
+    <bean id="cleanImgJob" class="java.lang.Object"/>
 </beans>

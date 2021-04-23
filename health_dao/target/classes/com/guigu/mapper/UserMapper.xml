@@ -7,7 +7,7 @@
     <result column="gender" jdbcType="VARCHAR" property="gender" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="user_remark" jdbcType="VARCHAR" property="user_remark" />
     <result column="station" jdbcType="VARCHAR" property="station" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
   </resultMap>
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, birthday, gender, username, password, remark, station, telephone
+    id, birthday, gender, username, password, user_remark, station, telephone
   </sql>
   <select id="selectByExample" parameterType="com.guigu.pojo.UserExample" resultMap="BaseResultMap">
     select
@@ -104,10 +104,10 @@
   </delete>
   <insert id="insert" parameterType="com.guigu.pojo.User">
     insert into t_user (id, birthday, gender, 
-      username, password, remark, 
+      username, password, user_remark, 
       station, telephone)
     values (#{id,jdbcType=INTEGER}, #{birthday,jdbcType=DATE}, #{gender,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{user_remark,jdbcType=VARCHAR}, 
       #{station,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.guigu.pojo.User">
@@ -128,8 +128,8 @@
       <if test="password != null">
         password,
       </if>
-      <if test="remark != null">
-        remark,
+      <if test="user_remark != null">
+        user_remark,
       </if>
       <if test="station != null">
         station,
@@ -154,8 +154,8 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
+      <if test="user_remark != null">
+        #{user_remark,jdbcType=VARCHAR},
       </if>
       <if test="station != null">
         #{station,jdbcType=VARCHAR},
@@ -189,8 +189,8 @@
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
+      <if test="record.user_remark != null">
+        user_remark = #{record.user_remark,jdbcType=VARCHAR},
       </if>
       <if test="record.station != null">
         station = #{record.station,jdbcType=VARCHAR},
@@ -210,7 +210,7 @@
       gender = #{record.gender,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=VARCHAR},
+      user_remark = #{record.user_remark,jdbcType=VARCHAR},
       station = #{record.station,jdbcType=VARCHAR},
       telephone = #{record.telephone,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -232,8 +232,8 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
+      <if test="user_remark != null">
+        user_remark = #{user_remark,jdbcType=VARCHAR},
       </if>
       <if test="station != null">
         station = #{station,jdbcType=VARCHAR},
@@ -250,9 +250,39 @@
       gender = #{gender,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
+      user_remark = #{user_remark,jdbcType=VARCHAR},
       station = #{station,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="emailShow" resultType="User">
+        SELECT * FROM t_user WHERE (username=#{username} OR email=#{email}) AND PASSWORD=#{password}
+    </select>
+
+
+  <!--email 注册-->
+  <insert id="emailAdd" parameterType="User">
+        insert into t_user(email,password) values(#{email},#{password})
+    </insert>
+
+
+  <!--email 查-->
+  <select id="emailCha" resultType="User">
+        SELECT * FROM t_user WHERE email=#{email} LIMIT 1
+    </select>
+
+
+  <!--通过email 修改密码-->
+  <update id="emailUpdate" parameterType="User">
+        UPDATE t_user SET PASSWORD=#{password} WHERE email=#{email}
+    </update>
+  <insert id="addUserOder">
+    insert into  t_user_order(user_id,order_id) value (#{userId},#{orderId})
+  </insert>
+  <select id="getAll"  resultType="UserAndOrder">
+    SELECT *  FROM t_user INNER JOIN t_user_order ON t_user.id=t_user_order.user_id INNER JOIN t_order ON t_order.id=t_user_order.order_id INNER JOIN t_setmeal ON t_setmeal.id=t_order.setmeal_id WHERE user_id=#{userId}
+  </select>
+  <delete id="deleteByOrderId">
+    delete from t_user_order where order_id=#{orderId}
+  </delete>
 </mapper>

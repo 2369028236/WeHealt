@@ -3,8 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <title>我的订单</title>
+    <link rel="stylesheet" href="../../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
+<div id="app">
+    <template>
+        <el-form label-width="120px">
+        <el-table size="small" current-row-key="id" :data="tableData" stripe highlight-current-row>
+            <el-table-column prop="name" label="套餐名称" align="center"></el-table-column>
+            <el-table-column prop="birthday" label="出生日期" align="center"></el-table-column>
+            <el-table-column prop="username" label="用户名" align="center"></el-table-column>
+            <el-table-column prop="orderDate" label="预约日期" align="center"></el-table-column>
+            <el-table-column prop="orderType" label="预约类型" align="center"></el-table-column>
+            <el-table-column prop="orderStatus" label="预约状态" align="center"></el-table-column>
+            <el-table-column prop="age" label="适用年龄" align="center"></el-table-column>
+            <el-table-column prop="price" label="价格" align="center"></el-table-column>
+            <el-table-column prop="remark" label="套餐说明" align="center"></el-table-column>
+            <el-table-column label="适用性别" align="center">
+                <template slot-scope="scope">
+                    <span>{{ scope.row.sex == '0' ? '不限' : scope.row.sex == '1' ? '男' : '女'}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column prop="phoneNumber" label="电话号码" align="center"></el-table-column>
+            <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                    <el-button size="mini" type="danger" @click="handleDelete(scope.row)">取消预约</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        </el-form>
+    </template>
+</div>
+<script src="../../js/vue.js"></script>
+<script src="../../plugins/elementui/index.js"></script>
+<script src="../../js/axios-0.18.0.js"></script>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            tableData:[]
+        },
+        created(){
+            this.findAll();
+        },
+        methods:{
+            findAll(){
+                axios.post('/user/getAll').then(res => {
+                    console.log(res.data.data)
+                    if (res.data.flag) {
+                        this.tableData = res.data.data;
+                    } else {
+                        this.$message.error(res.data.message);
+                        if (res.data.message=="您没有预约信息"){
+                        }else {
+                            setTimeout(function(){
+                                window.parent.location.href="/index.html";
+                            },2000);
+                        }
+                    }
+                })
+            },
+            handleDelete(val){
+                console.log(val);
+                axios.post('/order/deleteOrder',{
+                    order_id:val.order_id,
+                    member_id:val.member_id
+                }).then(res => {
+                    if (res.data.flag) {
+                        this.tableData = res.data.data;
+                    } else {
+                        this.$message.error(res.data.message);
 
+                    }
+                })
+            }
+        }
+    })
+</script>
 </body>
 </html>

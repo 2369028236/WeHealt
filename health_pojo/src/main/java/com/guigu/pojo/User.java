@@ -14,11 +14,36 @@ public class User implements Serializable {
 
     private String password;
 
-    private String remark;
+    private String user_remark;
 
     private String station;
 
     private String telephone;
+
+    private String email;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", birthday=" + birthday +
+                ", gender='" + gender + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", user_remark='" + user_remark + '\'' +
+                ", station='" + station + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Integer getId() {
         return id;
@@ -61,11 +86,11 @@ public class User implements Serializable {
     }
 
     public String getRemark() {
-        return remark;
+        return user_remark;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setRemark(String user_remark) {
+        this.user_remark = user_remark == null ? null : user_remark.trim();
     }
 
     public String getStation() {
@@ -84,31 +109,19 @@ public class User implements Serializable {
         this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public User(Integer id, Date birthday, String gender, String username, String password, String remark, String station, String telephone) {
+    public User(Integer id, Date birthday, String gender, String username, String password, String user_remark, String station, String telephone, String email) {
         this.id = id;
         this.birthday = birthday;
         this.gender = gender;
         this.username = username;
         this.password = password;
-        this.remark = remark;
+        this.user_remark = user_remark;
         this.station = station;
         this.telephone = telephone;
+        this.email = email;
     }
 
     public User() {
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", birthday=" + birthday +
-                ", gender='" + gender + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", remark='" + remark + '\'' +
-                ", station='" + station + '\'' +
-                ", telephone='" + telephone + '\'' +
-                '}';
-    }
 }

@@ -55,7 +55,7 @@ select * from t_ordersetting where orderDate between #{dateBegin} and #{dateEnd}
 update t_ordersetting set number=#{number} where orderDate = #{orderDate}
 </update>
   <update id="editReservationsByOrderDate" parameterType="OrderSetting">
-update t_ordersetting set reservations=reservations+#{reservations} where orderDate = #{orderDate}
+update t_ordersetting set reservations=#{reservations} where orderDate = #{orderDate}
 </update>
   <sql id="Update_By_Example_Where_Clause">
     <where>

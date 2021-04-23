@@ -9,19 +9,21 @@ import com.guigu.pojo.*;
 import com.guigu.service.MemberService;
 import com.guigu.service.OrderService;
 import com.guigu.service.OrderSettingService;
+import com.guigu.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/order")
+
 public class OrderController {
     @Reference
     private OrderService orderService;
@@ -29,7 +31,8 @@ public class OrderController {
     private OrderSettingService orderSettingService;
     @Reference
     private MemberService memberService;
-
+    @Reference
+    private UserService userService;
     @PostMapping("/add")
     public Result addOrder(HttpServletRequest request) throws IOException, ParseException {
         Date dNow = new Date();
@@ -43,8 +46,12 @@ public class OrderController {
         member.setPhoneNumber((String) map.get("phoneNumber"));
         member.setRegTime(ft.parse(String.valueOf(map.get("regTime"))));
         member.setEmail((String) map.get("email"));
-        if (memberService.getMemberByIdCard(member.getIdCard())!=null){
-            return new Result(false, MessageConstant.HAS_ORDERED);
+        Member member2=memberService.getMemberByIdCard(member.getIdCard());
+        if (member2!=null){
+            date2=member2.getRegTime();
+            if (dNow.getTime()-date2.getTime()<0){
+                return new Result(false, MessageConstant.HAS_ORDERED);
+            }
         }
       OrderSetting orderSetting= orderSettingService.getOrderSettingByDate(member.getRegTime());
        if (orderSetting!=null){
@@ -57,20 +64,43 @@ public class OrderController {
                 return new Result(false, MessageConstant.SELECTED_DATE_CANNOT_ORDER);
            }else{
                memberService.addMember(member);
-               Member member1=memberService.getMember(member.getPhoneNumber());
+               Member member1=memberService.getMemberByIdCard(member.getIdCard());
                System.out.println("member1"+member1);
                Order order=new Order();
                order.setMember_id(member1.getId());
                order.setOrderDate(date2);
                order.setSetmeal_id((Integer) map.get("Setmeal_id"));
                orderService.addOrder(order);
-               orderSetting.setReservations(orderSetting.getReservations()+1);
+               orderSetting.setReservations(Integer.valueOf(orderSetting.getReservations())+1);
                orderSettingService.editReservationsByOrderDate(orderSetting);
-               return new Result(true, MessageConstant.ORDER_SUCCESS);
+              Order list= orderService.getOrderMemberID(order.getMember_id());
+             HttpSession session= request.getSession();
+             User user= (User) session.getAttribute("user2");
+             userService.addUserOrder(user.getId(),list.getId());
+             return new Result(true, MessageConstant.ORDER_SUCCESS,list);
            }
        }else {
            return new Result(false, MessageConstant.SELECTED_DATE_CANNOT_ORDER);
        }
+    }
+    @PostMapping("/getOrder")
+    public Result getOrder(HttpServletRequest request) throws IOException {
+        Map map = JSON.parseObject(request.getInputStream(),Map.class);
+        Integer id=Integer.valueOf(String.valueOf(map.get("id"))) ;
+        List<Order> list=orderService.getOrder(id);
+        return new Result(true,"",list);
+    }
 
+    @PostMapping("/deleteOrder")
+    public Result deleteOrder(HttpServletRequest request) throws IOException {
+        Map map = JSON.parseObject(request.getInputStream(),Map.class);
+        Integer order_id=Integer.valueOf(String.valueOf(map.get("order_id"))) ;
+        Integer member_id=Integer.valueOf(String.valueOf(map.get("member_id"))) ;
+       if (userService.deleteByOrderId(order_id)>0){
+           if (orderService.deleteByPrimaryKey(order_id)>0){
+               memberService.deleteByPrimaryKey(member_id);
+           }
+       }
+        return new Result(true,"已为你取消预约");
     }
 }

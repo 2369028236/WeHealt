@@ -28,4 +28,5 @@ http://www.springframework.org/schema/context/spring-context.xsd">
             </list>
         </property>
     </bean>
+    <bean id="clearImgJob" class="java.lang.Object"/>
 </beans>

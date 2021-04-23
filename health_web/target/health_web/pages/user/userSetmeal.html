@@ -121,10 +121,14 @@
                                             <td>
                                                 <label>体检人</label>
                                                 <input type="text" id="name" name="name" />
+
                                             </td>
                                             <td>
-                                                <label>性别</label><input type="radio" name="sex" value="男" checked/>男
-                                               <input type="radio" name="sex" value="女"/>女
+                                                <label>性别</label>
+                                               <select name="sex">
+                                                   <option value="1">男</option>
+                                                   <option value="2">女</option>
+                                               </select>
                                             </td>
                                         </tr></br></br>
                                         <tr>
@@ -210,18 +214,18 @@
                 alert("邮箱不能为空");
                 return ;
             }else {
-                // $.ajax({
-                //     type:'post',
-                //     url:'/email/getEmail',
-                //     dataType:'json',
-                //     data:{email:email},
-                //     success: function(data){
-                //         var obj=JSON.parse(data)
-                //         if(obj.flag) {
-                //             alert("验证码已发送！")
-                //            yzm2=obj.yzm;
-                //         }
-                //     }});
+                $.ajax({
+                    type:'post',
+                    url:'/email/getEmail',
+                    dataType:'json',
+                    data:{email:email},
+                    success: function(data){
+                        var obj=JSON.parse(data)
+                        if(obj.flag) {
+                            alert("验证码已发送！")
+                           yzm2=obj.yzm;
+                        }
+                    }});
             }
             this.settime(val,60);
         }
@@ -276,10 +280,10 @@
                     this.$message.error('身份证号码输入错误，请重新输入');
                     return;
                 }
-                // if (yzm2!=$("#yzm").val()){
-                //     this.$message.error('验证码输入错误，请核对验证码后预约');
-                //     return ;
-                // }
+                if (yzm2!=$("#yzm").val()){
+                    this.$message.error('验证码输入错误，请核对验证码后预约');
+                    return ;
+                }
                 var mobile =$("#phoneNumber").val();
                 if(mobile.length == 11){//手机号码
                     if(phone.test(mobile)) {
@@ -293,16 +297,16 @@
                 }
                 axios.post("/order/add",{
                     name:$("#name").val(),
-                    sex: $('input[name="sex"]:checked').val(),
+                    sex: $('select[name="sex"] option:checked').val(),
                     idCard:$("#idCard").val(),
                     phoneNumber:$("#phoneNumber").val(),
                     regTime:$("#regTime").val(),
                     email:$("#email").val(),
                     Setmeal_id:id,
-                }).then((response) => {
+                }).then(response => {
                     if(response.data.flag){
 //预约成功，跳转到预约成功页面
-                        window.location.href="/user/orderSuccess.html?orderId=" + response.data.data.id;
+                        location.href="/user/orderSuccess.html?orderId="+response.data.data.id;
                     }else{
 //预约失败，提示预约失败信息
                         this.$message.error(response.data.message);

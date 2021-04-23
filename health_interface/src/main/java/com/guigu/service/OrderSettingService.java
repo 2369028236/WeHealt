@@ -21,16 +21,14 @@ public interface OrderSettingService {
 
     void editReservationsByOrderDate(OrderSetting orderSetting) throws HealthException;
 
-<<<<<<< HEAD
     List<OrderSetting> selectByExample(OrderSettingExample example) throws HealthException;
 
     OrderSetting getOrderSettingByDate(Date date);
 
-=======
+
     List<OrderSetting> selectByExample1(OrderSettingExample example) throws HealthException;
 
     List<Map<String, Object>> findSetmealCount();
->>>>>>> 5cc2772b337eaf37330f12112010b27c89acb301
 }
 
 

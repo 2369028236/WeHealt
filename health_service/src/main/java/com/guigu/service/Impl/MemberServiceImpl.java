@@ -5,9 +5,11 @@ import com.guigu.mapper.MemberMapper;
 import com.guigu.pojo.Member;
 import com.guigu.pojo.MemberExample;
 import com.guigu.service.MemberService;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-
+import java.util.List;
+@Transactional(rollbackFor = Exception.class)
 @Service(interfaceClass = MemberService.class)
 public class MemberServiceImpl implements MemberService {
     @Resource
@@ -17,19 +19,28 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.insertSelective(member);
     }
 
-    @Override
-    public Member getMember(String phone) {
-        MemberExample memberExample=new MemberExample();
-        MemberExample.Criteria m=memberExample.createCriteria();
-        m.andPhoneNumberEqualTo(phone);
-        return memberMapper.selectByExample(memberExample).get(0);
-    }
 
     @Override
     public Member getMemberByIdCard(String IdCard) {
         MemberExample memberExample=new MemberExample();
         MemberExample.Criteria m=memberExample.createCriteria();
         m.andIdCardEqualTo(IdCard);
-        return memberMapper.selectByExample(memberExample).get(0);
+       List<Member> memberList= memberMapper.selectByExample(memberExample);
+       if (memberList.isEmpty()){
+           return null;
+       }
+        return memberList.get(memberList.size()-1);
     }
+
+    @Override
+    public Member getMemberById(Integer id) {
+        return memberMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Integer id) {
+        return memberMapper.deleteByPrimaryKey(id);
+    }
+
+
 }

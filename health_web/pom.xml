@@ -30,11 +30,6 @@
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>com.guigu</groupId>
-      <artifactId>health_common</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper</artifactId>
       <version>5.2.0</version>
@@ -74,11 +69,6 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>dubbo</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>1.4</version>
     </dependency>
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -137,6 +127,12 @@
       <artifactId>commons-io</artifactId>
       <version>2.6</version>
     </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>4.2.8.RELEASE</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 
   <build>

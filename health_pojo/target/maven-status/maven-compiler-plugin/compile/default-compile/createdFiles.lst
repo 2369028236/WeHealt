@@ -40,6 +40,7 @@ com\guigu\pojo\UserExample.class
 com\guigu\pojo\CheckGroupExample$Criterion.class
 com\guigu\pojo\CheckItemExample$Criteria.class
 com\guigu\pojo\UserExample$GeneratedCriteria.class
+com\guigu\pojo\UserAndOrder.class
 com\guigu\pojo\Order.class
 com\guigu\pojo\OrderExample.class
 com\guigu\pojo\SetMealExample$Criterion.class
