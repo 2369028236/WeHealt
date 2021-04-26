@@ -77,6 +77,7 @@ public interface MessageConstant {
     static final String EDIT_USER_FAIL = "编辑用户失败";
     static final String DELETE_USER_SUCCESS = "删除用户成功";
     static final String DELETE_USER_FAIL = "删除用户失败";
+    static final String CHECKGROUP_IN_USE = "此组正在被使用";
 
 
 }

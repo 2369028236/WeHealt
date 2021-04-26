@@ -214,6 +214,7 @@ update t_ordersetting set reservations=#{reservations} where orderDate = #{order
       reservations = #{reservations,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <select id="selectByExample1" parameterType="com.guigu.pojo.OrderSettingExample" resultMap="BaseResultMap">
     SELECT * FROM t_ordersetting ORDER BY   orderDate DESC LIMIT 1,15
   </select>

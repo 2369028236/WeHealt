@@ -255,6 +255,36 @@
       telephone = #{telephone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findByUsername" parameterType="String" resultMap="userRolePermissionMap">
+     select u.id,u.username,u.password, ur.role_id,
+            r.keyword role_keyword, r.name role_name,
+            rp.permission_id, p.keyword permission_keyword,
+            p.name permission_name From t_user u, t_user_role ur,
+            t_role r, t_role_permission rp, t_permission p
+     where u.id=ur.user_id
+            and ur.role_id=r.id
+            and r.id=rp.role_id
+            and rp.permission_id=p.id
+            and u.username=#{username}
+</select>
+
+  <resultMap id="userRolePermissionMap" type="User">
+    <id property="id" column="id"></id>
+    <result property="username" column="username"/>
+    <result property="password" column="password"/>
+    <collection property="roles" ofType="Role">
+      <id property="id" column="role_id"/>
+      <result property="keyword" column="role_keyword"/>
+      <result property="name" column="role_name"/>
+      <collection property="permissions" ofType="Permission">
+        <id property="id" column="permission_id"/>
+        <result property="keyword" column="permission_keyword"/>
+        <result property="name" column="permission_name"/>
+      </collection>
+    </collection>
+  </resultMap>
+
   <select id="emailShow" resultType="User">
         SELECT * FROM t_user WHERE (username=#{username} OR email=#{email}) AND PASSWORD=#{password}
     </select>
@@ -285,4 +315,60 @@
   <delete id="deleteByOrderId">
     delete from t_user_order where order_id=#{orderId}
   </delete>
+  <select id="findPage" parameterType="string"  resultType="User">
+    SELECT * FROM t_user
+    <if test="value != null and value.length !=0">
+      WHERE username = #{value}
+      OR
+      id IN (SELECT ur.user_id FROM t_user_role  ur, t_role  r WHERE r.id=ur.role_id  AND r.name= #{value})
+    </if>
+  </select>
+  <insert id="add" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+    INSERT  INTO t_user( birthday,gender,username,password,remark,station,telephone)
+    VALUES ( #{birthday},#{gender},#{username},#{password},#{remark},#{station},#{telephone})
+  </insert>
+  <insert id="setUserAndRole" parameterType="map">
+    INSERT INTO t_user_role(user_id,role_id)
+    VALUES(#{user_id},#{role_id})
+  </insert>
+  <select id="findById" resultType="User">
+    SELECT * FROM t_user WHERE  id=#{id}
+  </select>
+  <update id="edit" parameterType="User">
+    update t_user
+    <set>
+      <if test="birthday != null">
+        birthday = #{birthday},
+      </if>
+      <if test="gender != null">
+        gender = #{gender},
+      </if>
+      <if test="username != null">
+        username = #{username},
+      </if>
+      <if test="password != null">
+        password = #{password},
+      </if>
+      <if test="remark != null">
+        remark = #{remark},
+      </if>
+      <if test="station != null">
+        station = #{station},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <delete id="deleteAssociation" parameterType="int">
+    DELETE FROM t_user_role WHERE user_id = #{id}
+  </delete>
+  <delete id="delete" parameterType="int">
+    DELETE FROM t_user WHERE id = #{id}
+  </delete>
+  <select id="findRoleIdsByUserId" parameterType="int" resultType="int">
+    SELECT role_id  FROM  t_user_role WHERE  user_id = #{id}
+  </select>
+
 </mapper>

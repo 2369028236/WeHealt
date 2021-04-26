@@ -260,16 +260,90 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.Menu">
     update t_menu
     set name = #{name,jdbcType=VARCHAR},
-      linkUrl = #{linkUrl,jdbcType=VARCHAR},
-      path = #{path,jdbcType=VARCHAR},
-      priority = #{priority,jdbcType=INTEGER},
-      icon = #{icon,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      parentMenuId = #{parentMenuId,jdbcType=INTEGER},
-      level = #{level,jdbcType=INTEGER}
+        linkUrl = #{linkUrl,jdbcType=VARCHAR},
+        path = #{path,jdbcType=VARCHAR},
+        priority = #{priority,jdbcType=INTEGER},
+        icon = #{icon,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
+        parentMenuId = #{parentMenuId,jdbcType=INTEGER},
+        level = #{level,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findAll" resultType="Menu">
+    select * from t_menu
+    <if test="value != null">
+      where name = #{str}
+    </if>
+  </select>
+
+  <insert id="menuAdd" useGeneratedKeys="true" keyProperty="id">
+    insert into t_menu(name,linkUrl,path,priority,description,icon,parentMenuId)
+    VALUES
+    (#{name},#{linkUrl},#{path},#{priority},#{description},#{icon},#{parentMenuId})
+  </insert>
+
+  <select id="menuUpdate" resultType="Menu">
+    select * from  t_menu where id =#{id}
+  </select>
+
+  <update id="menuEdit">
+    update t_menu
+    <set>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="linkUrl != null">
+        linkUrl = #{linkUrl},
+      </if>
+      <if test="path != null">
+        path = #{path},
+      </if>
+      <if test="priority != null">
+        priority = #{priority},
+      </if>
+      <if test="description != null">
+        description = #{description},
+      </if>
+      <if test="icon != null">
+        icon = #{icon},
+      </if>
+
+      <if test="parentMenuId != null">
+        parentMenuId = #{parentMenuId},
+      </if>
+    </set>
+
+    where
+    id = #{id}
+  </update>
+
+  <delete id="menuDelete">
+    DELETE from t_menu WHERE id = #{id}
+  </delete>
+
+  <select id="findAllMenu" resultType="Menu">
+    select * from  t_menu
+  </select>
+
+  <select id="menuDeletRole" resultType="int">
+    select COUNT(*) from  t_role_menu where menu_id = #{id}
+  </select>
+
+  <resultMap id="MenuMap" type="com.guigu.pojo.Menu">
+    <id property="id" column="id"/>
+    <collection property="children" javaType="list" ofType="com.guigu.pojo.Menu" column="{rid=rid,pid=id}" select="com.guigu.mapper.MenuMapper.findByPidAndRid" />
+  </resultMap>
+
+  <select id="findByRoleId" resultMap="MenuMap">
+    select *,r.role_id as rid from t_menu m join t_role_menu r on m.id = r.menu_id where r.role_id = #{id} and m.parentMenuId is null
+  </select>
+
+  <select id="findByPidAndRid" resultType="com.guigu.pojo.Menu" parameterType="map">
+    select *,r.role_id as rid from t_menu m join t_role_menu r on m.id = r.menu_id where r.role_id = #{rid} and m.parentMenuId = #{pid}
+  </select>
 </mapper>
