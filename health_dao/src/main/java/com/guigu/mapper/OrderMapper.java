@@ -1,6 +1,7 @@
 package com.guigu.mapper;
 
 import com.guigu.pojo.Order;
+import com.guigu.pojo.OrderAndMember;
 import com.guigu.pojo.OrderExample;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +29,6 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<OrderAndMember> getAll(String queryStr);
 }

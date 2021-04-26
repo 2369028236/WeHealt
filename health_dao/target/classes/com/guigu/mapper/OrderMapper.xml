@@ -225,4 +225,7 @@
       setmeal_id = #{setmeal_id,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getAll" resultType="com.guigu.pojo.OrderAndMember">
+    SELECT *,t_setmeal.name as SetmealName,t_member.name as memberName,t_order.id as order_id FROM t_setmeal INNER JOIN t_order ON t_setmeal.id=t_order.setmeal_id INNER JOIN t_member ON t_order.member_id=t_member.id WHERE t_setmeal.name LIKE #{queryStr} OR t_member.name LIKE #{queryStr}
+  </select>
 </mapper>

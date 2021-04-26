@@ -24,6 +24,6 @@
        加上属性interfaceClass=接口.class) Dubbo需要将Service发布为服务，要求必须使用cglib创建代理对象。
         如果dubbo的版本为2.6.2,就没有上面的问题。mvc中需要扫controller包 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/> <!-- 导入dao -->
-    <context:component-scan base-package="com.guigu.service" />
+    <context:component-scan base-package="com.guigu.service"/>
     <import resource="classpath:applicationContext-dao.xml"/>
 </beans>

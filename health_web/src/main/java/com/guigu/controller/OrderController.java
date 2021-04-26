@@ -3,6 +3,8 @@ package com.guigu.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.guigu.constant.MessageConstant;
 import com.guigu.entity.Result;
 import com.guigu.pojo.*;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,17 +62,15 @@ public class OrderController {
                return new Result(false, MessageConstant.ORDER_FULL);
            }
            date2 = member.getRegTime();
-           System.out.println(date2);
            if(dNow.getTime()-date2.getTime()>=0){
                 return new Result(false, MessageConstant.SELECTED_DATE_CANNOT_ORDER);
            }else{
                memberService.addMember(member);
                Member member1=memberService.getMemberByIdCard(member.getIdCard());
-               System.out.println("member1"+member1);
                Order order=new Order();
                order.setMember_id(member1.getId());
                order.setOrderDate(date2);
-               order.setSetmeal_id((Integer) map.get("Setmeal_id"));
+               order.setOrderStatus("未到诊");
                orderService.addOrder(order);
                orderSetting.setReservations(Integer.valueOf(orderSetting.getReservations())+1);
                orderSettingService.editReservationsByOrderDate(orderSetting);
@@ -96,11 +97,27 @@ public class OrderController {
         Map map = JSON.parseObject(request.getInputStream(),Map.class);
         Integer order_id=Integer.valueOf(String.valueOf(map.get("order_id"))) ;
         Integer member_id=Integer.valueOf(String.valueOf(map.get("member_id"))) ;
-       if (userService.deleteByOrderId(order_id)>0){
-           if (orderService.deleteByPrimaryKey(order_id)>0){
+       if (userService.deleteByOrderId(order_id)>=0){
+           if (orderService.deleteByPrimaryKey(order_id)>=0){
                memberService.deleteByPrimaryKey(member_id);
            }
        }
         return new Result(true,"已为你取消预约");
+    }
+
+    @PostMapping("/getAll")
+    public Result getAll(HttpServletRequest request) throws IOException {
+        Map map = JSON.parseObject(request.getInputStream(),Map.class);
+        String queryStr=String.valueOf(map.get("queryStr"));
+        Integer pageIndex=Integer.valueOf(String.valueOf(map.get("pageIndex")));
+        Integer pageSize=Integer.valueOf(String.valueOf(map.get("pageSize"))) ;
+       Map list= orderService.getAll(queryStr,pageIndex,pageSize);
+       return  new Result(true,"",list);
+    }
+    @RequestMapping("/updateById")
+    public Result updateById(@RequestParam("id") Integer id){
+        Map<String,Object> map = new HashMap<>();
+        map.put("flag",orderService.updateById(id));
+        return new Result(true,"",map);
     }
 }
