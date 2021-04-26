@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WeHealth</title>
+    <meta name="description" content="WeHealth">
+    <meta name="keywords" content="WeHealth">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- 引入组件库 -->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../plugins/elementui/index.js"></script>
+    <script src="../js/axios-0.18.0.js"></script>
+    <style>
+        .datatable {
+            position: relative;
+            box-sizing: border-box;
+            -webkit-box-flex: 1;
+            width: 100%;
+            max-width: 100%;
+            font-size: 14px;
+            color: rgb(96, 98, 102);
+            overflow: hidden;
+            flex: 1 1 0%;
+        }
+
+        .datatable td, .datatable th {
+            padding: 12px 0;
+            min-width: 0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+            position: relative;
+            text-align: left;
+        }
+    </style>
+</head>
+<body class="hold-transition">
+<div id="app">
+    <div class="content-header">
+        <h1>菜单管理
+            <small>菜单管理</small>
+        </h1>
+        <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>菜单管理</el-breadcrumb-item>
+            <el-breadcrumb-item>菜单管理</el-breadcrumb-item>
+        </el-breadcrumb>
+    </div>
+    <div class="app-container">
+        <div class="box">
+            <div class="filter-container">
+                <el-input placeholder="name" v-model="pagination.queryString" style="width: 200px;"
+                          class="filter-item" @keyup.enter.native="handleFilter"></el-input>
+                <el-button @click="findPage()" class="dalfBut">查询</el-button>
+                <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
+            </div>
+            <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
+                <el-table-column type="index" align="center" label="序号"></el-table-column>
+                <el-table-column prop="name" label="name" align="center"></el-table-column>
+                <el-table-column prop="linkUrl" label="linkUrl" align="center"></el-table-column>
+                <el-table-column prop="path" label="path" align="center"></el-table-column>
+                <el-table-column prop="priority" label="priority" align="center"></el-table-column>
+                <el-table-column prop="description" label="description" align="center"></el-table-column>
+                <el-table-column prop="icon" label="icon" align="center"></el-table-column>
+                <el-table-column prop="level" label="level" align="center"></el-table-column>
+                <el-table-column prop="parentMenuId" label="parentMenuId" align="center"></el-table-column>
+                <el-table-column label="操作" align="center" fixed="right"  width="220">
+                    <template slot-scope="scope">
+                        <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+                        <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="pagination-container">
+                <el-pagination
+                        class="pagiantion"
+                        @current-change="handleCurrentChange"
+                        :current-page="pagination.currentPage"
+                        :page-size="pagination.pageSize"
+                        layout="total, prev, pager, next, jumper"
+                        :total="pagination.total">
+                </el-pagination>
+            </div>
+            <!-- 新增标签弹层 -->
+            <div class="add-form">
+                <el-dialog title="新增菜单" :visible.sync="dialogFormVisible">
+                    <template>
+                        <el-tabs v-model="activeName" type="card">
+                            <el-tab-pane label="基本信息" name="first">
+                                <el-form label-position="right" label-width="100px">
+
+                                    <el-row>
+                                        <el-col :span="12">
+                                            <el-form-item label="姓名">
+                                                <el-input v-model="formData.name"/>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-form-item label="linkUrl">
+                                                <el-input v-model="formData.linkUrl"/>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row>
+                                        <el-col :span="12">
+                                            <el-form-item label="path">
+                                                <el-input v-model="formData.path"/>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-form-item label="priority">
+                                                <el-input v-model="formData.priority"/>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row>
+                                        <el-col :span="12">
+                                            <el-form-item label="description">
+                                                <el-input v-model="formData.description"/>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-form-item label="icon">
+                                                <el-input v-model="formData.icon"/>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row>
+
+                                        <el-col :span="12">
+                                            <el-form-item label="parentMenuId">
+                                                <el-input v-model="formData.parentMenuId"/>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-form>
+                            </el-tab-pane>
+
+                        </el-tabs>
+                    </template>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="dialogFormVisible = false">取消</el-button>
+                        <el-button type="primary" @click="handleAdd()">确定</el-button>
+                    </div>
+                </el-dialog>
+            </div>
+
+            <!-- 修改标签弹层 -->
+            <div class="add-form">
+                <el-dialog title="修改菜单" :visible.sync="dialogFormVisible4Edit">
+                    <template>
+                        <el-tabs v-model="activeName" type="card">
+                            <el-tab-pane label="基本信息" name="first">
+                                <el-form label-position="right" label-width="100px">
+
+                                    <el-row>
+                                        <el-col :span="12">
+                                            <el-form-item label="姓名">
+                                                <el-input v-model="formData.name"/>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-form-item label="linkUrl">
+                                                <el-input v-model="formData.linkUrl"/>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row>
+                                        <el-col :span="12">
+                                            <el-form-item label="path">
+                                                <el-input v-model="formData.path"/>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-form-item label="priority">
+                                                <el-input v-model="formData.priority"/>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row>
+                                        <el-col :span="12">
+                                            <el-form-item label="description">
+                                                <el-input v-model="formData.description"/>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-form-item label="icon">
+                                                <el-input v-model="formData.icon"/>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row>
+                                        <el-col :span="12">
+                                            <el-form-item label="parentMenuId">
+                                                <el-input v-model="formData.parentMenuId"/>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-form>
+                            </el-tab-pane>
+
+                        </el-tabs>
+                    </template>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
+                        <el-button type="primary" @click="handleEdit()">确定</el-button>
+                    </div>
+                </el-dialog>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    var vue = new Vue({
+        el: '#app',
+        data: {
+            activeName: 'first',//添加/编辑窗口Tab标签名称
+            pagination: {//分页相关属性
+                currentPage: 1,
+                pageSize: 10,
+                total: 100,
+                queryString: null,
+            },
+            dataList: [],//列表数据
+            formData: {},//表单数据
+            tableData: [],//新增和编辑表单中对应的检查项列表数据
+            checkitemIds: [],//新增和编辑表单中检查项对应的复选框，基于双向绑定可以进行回显和数据提交
+            dialogFormVisible: false,//控制添加窗口显示/隐藏
+            dialogFormVisible4Edit: false//控制编辑窗口显示/隐藏
+        },
+        created() {
+            this.findPage();
+        },
+        methods: {
+            //编辑
+            handleEdit() {
+                //1 ajax携带检查组基本信息(this.formData)和选择的检查项id(checkitemIds)请求CheckGroupController中的edit()
+                axios.post("../menu/menuEdit",this.formData).then(response => {
+                    this.$message({
+                        showClose: true,
+                        message: response.data.message,
+                        type: response.data.flag ? 'success' : 'error'
+                    });
+                    if (response.data.flag) {
+                        //重新加载分页数据,关闭编辑窗口
+                        this.findPage();
+                        this.dialogFormVisible4Edit = false;
+                    }
+                }).catch((r)=>{
+                    this.showMessage(r);
+                });
+
+            },
+            //添加
+            handleAdd() {
+                axios.post("../menu/menuAdd",this.formData).then(response => {
+                    this.$message({
+                        showClose: true,
+                        message: response.data.message,
+                        type: response.data.flag ? 'success' : 'error'
+                    });
+                    if (response.data.flag) {
+                        this.findPage();
+                        this.dialogFormVisible = false;
+                    }
+                }).catch((r)=>{
+                    this.showMessage(r);
+                });
+
+            },
+            //分页查询
+            findPage() {
+                var queryPageBean = {
+                    currentPage: this.pagination.currentPage,
+                    pageSize: this.pagination.pageSize,
+                    queryString: this.pagination.queryString
+                }
+                axios.post("../menu/findPage", queryPageBean).then(response => {
+                    //总条数 this.pagination.total
+                    //当前页的数据 this.dataList
+                    this.pagination.total = response.data.total;
+                    this.dataList = response.data.rows;
+                }).catch((r)=>{
+                    this.showMessage(r);
+                });
+
+            },
+
+            // 重置表单
+            resetForm() {
+
+                this.formData = {};
+                //2.2 重置检查组关联的检查项id
+                this.checkitemIds = [];
+            },
+
+            // 弹出添加窗口
+            handleCreate() {
+                //1 弹出新增检查组的对话框
+                this.dialogFormVisible = true;
+                //2 清空之前输入的数据
+                this.resetForm();
+
+            },
+
+            // 弹出编辑窗口
+            handleUpdate(row) {
+                axios.get("../menu/menuUpdate?id="+row.id).then(res=>{
+                    if(res.data.flag){
+                        this.formData = res.data.data;
+                    }
+                });
+                this.dialogFormVisible4Edit = true;
+            },
+
+            //切换页码
+            handleCurrentChange(currentPage) {
+                this.pagination.currentPage = currentPage;
+                this.findPage();
+            },
+            // 删除
+            handleDelete(row) {
+                //获取要删除的检查组id
+                var id = row.id;
+                //避免用户误操作,弹出确认框
+                this.$confirm('此操作将永久删除该检查组, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    //ajax携带要删除的id,调用删除
+                    axios.get("../menu/menuDelete?id="+row.id).then(response => {
+                        //获取删除的响应结果
+                        this.$message({
+                            showClose: true,
+                            message: response.data.message,
+                            type: response.data.flag ? 'success':'error'
+                        });
+                        if(response.data.flag){
+                            this.findPage();
+                        }
+                    }).catch((r)=>{
+                        this.showMessage(r);
+                    });
+                }).catch(() => {
+                    //alert("点击的是取消");
+                });
+            },
+            //权限不足提示
+            showMessage(r){
+                if(r == 'Error: Request failed with status code 403'){
+                    //权限不足
+                    this.$message.error('权限不足');
+                    return;
+                }else{
+                    this.$message.error('未知错误');
+                    return;
+                }
+            }
+
+        }
+    })
+</script>
+</html>
