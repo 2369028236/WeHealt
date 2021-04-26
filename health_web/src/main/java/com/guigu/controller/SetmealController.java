@@ -11,6 +11,7 @@ import com.guigu.pojo.SetMeal;
 import com.guigu.service.SetmealService;
 import com.guigu.utils.QiNiuUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
@@ -98,6 +99,7 @@ public class SetmealController {
      * 添加
      */
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('SETMEAL_ADD')")
     public Result add(@RequestBody SetMeal setmeal, Integer[] checkgroupIds){
 // 调用服务更新
         setmealService.add(setmeal, checkgroupIds);
@@ -108,6 +110,7 @@ public class SetmealController {
         return new Result(true, MessageConstant.ADD_SETMEAL_SUCCESS);
     }
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('SETMEAL_EDIT')")
     public Result update(@RequestBody SetMeal setmeal, Integer[] checkgroupIds){
 // 获取原有图片的名称，判断图片是否更改了，如果更改了，那么旧的图片应该从有用的集合中移除
         SetMeal setmealInDb = setmealService.findById(setmeal.getId());
@@ -129,6 +132,7 @@ public class SetmealController {
 * 删除
 */
     @GetMapping("/delete")
+    @PreAuthorize("hasAuthority('SETMEAL_DELETE')")
     public Result deleteById(int id){
 // 查一下图片名称
         SetMeal setmeal = setmealService.findById(id);
@@ -144,6 +148,7 @@ public class SetmealController {
      * 分页查询
      */
     @PostMapping("/findPage")
+    @PreAuthorize("hasAuthority('SETMEAL_QUERY')")
     public Result findPage(@RequestBody QueryPageBean queryPageBean){
 // 调用服务分页查询
         PageResult<SetMeal> pageResult = setmealService.findPage(queryPageBean);

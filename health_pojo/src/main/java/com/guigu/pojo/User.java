@@ -2,6 +2,8 @@ package com.guigu.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class User implements Serializable {
     private Integer id;
@@ -21,21 +23,6 @@ public class User implements Serializable {
     private String telephone;
 
     private String email;
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", birthday=" + birthday +
-                ", gender='" + gender + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", user_remark='" + user_remark + '\'' +
-                ", station='" + station + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 
     public String getEmail() {
         return email;
@@ -122,6 +109,29 @@ public class User implements Serializable {
     }
 
     public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", birthday=" + birthday +
+                ", gender='" + gender + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", user_remark='" + user_remark + '\'' +
+                ", station='" + station + '\'' +
+                ", telephone='" + telephone + '\'' +
+                '}';
+    }
+
+    private Set<Role> roles = new HashSet<Role>(0);//对应角色集合
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
 }

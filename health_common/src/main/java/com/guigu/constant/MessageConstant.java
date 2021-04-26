@@ -1,5 +1,9 @@
 package com.guigu.constant;
 
+/**
+ * @author zhouwenkai
+ * @create 2021/3/23  11:14
+ */
 public interface MessageConstant {
     static final String DELETE_CHECKITEM_FAIL = "删除检查项失败";
     static final String DELETE_CHECKITEM_SUCCESS = "删除检查项成功";
@@ -61,8 +65,18 @@ public interface MessageConstant {
     static final String GET_BUSINESS_REPORT_FAIL = "获取运营统计数据失败";
     static final String GET_SETMEAL_LIST_SUCCESS = "查询套餐列表数据成功";
     static final String GET_SETMEAL_LIST_FAIL = "查询套餐列表数据失败";
-    static final String CHECKITEM_IN_USE ="检查项正在被使用" ;
-    static final String CHECKGROUP_IN_USE ="检查组正在被使用" ;
-    static final String EDIT_SETMEAL_SUCCESS ="套餐保存成功" ;
-    static final String DELETE_SETMEAL_SUCCESS ="套餐清除成功" ;
+    static final String  CHECKITEM_IN_USE = "能否捕捉异常";
+    static final String  EDIT_SETMEAL_SUCCESS = "编辑套餐成功";
+    static final String  DELETE_SETMEAL_SUCCESS = "删除套餐成功";
+    static final String SENT_VALIDATECODE = "验证码已经发送了，请注意查收";
+    static final String ADD_USER_SUCCESS = "新增用户成功";
+    static final String ADD_USER_FAIL = "新增用户失败";
+    static final String QUERY_USER_SUCCESS = "查询用户成功";
+    static final String QUERY_USER_FAIL = "查询用户失败";
+    static final String EDIT_USER_SUCCESS = "编辑用户成功";
+    static final String EDIT_USER_FAIL = "编辑用户失败";
+    static final String DELETE_USER_SUCCESS = "删除用户成功";
+    static final String DELETE_USER_FAIL = "删除用户失败";
+
+
 }

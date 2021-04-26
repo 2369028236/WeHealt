@@ -9,6 +9,7 @@ import com.guigu.pojo.OrderSetting;
 import com.guigu.pojo.OrderSettingExample;
 import com.guigu.service.OrderSettingService;
 import com.guigu.utils.POIUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,6 +53,7 @@ public class OrderSettingController {
      * @return
      */
     @RequestMapping("/getOrderSettingByMonth")
+    @PreAuthorize("hasAuthority('ORDERSETTING')")
     public Result getOrderSettingByMonth(String date){//参数格式为：2019-03
         try{
             List<Map> list = orderSettingService.getOrderSettingByMonth(date);
@@ -81,6 +83,7 @@ public class OrderSettingController {
         orderSettingService.editReservationsByOrderDate(orderSetting);
         return new Result(true, MessageConstant.ORDERSETTING_SUCCESS);
     }
+
     @RequestMapping("/selectByExample")
     public String selectByExample(OrderSettingExample example){
         List<OrderSetting> orderSettingList= orderSettingService.selectByExample1(example);

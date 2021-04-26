@@ -1,5 +1,6 @@
 package com.guigu.mapper;
 
+import com.github.pagehelper.Page;
 import com.guigu.pojo.Menu;
 import com.guigu.pojo.MenuExample;
 import org.apache.ibatis.annotations.Param;
@@ -28,4 +29,20 @@ public interface MenuMapper {
     int updateByPrimaryKeySelective(Menu record);
 
     int updateByPrimaryKey(Menu record);
+
+    List<Menu> findAllMenu();
+
+    Page<Menu> findAll(String queryString);
+
+    void menuAdd(Menu menu);
+
+    Menu menuUpdate(Integer id);
+
+    void menuEdit(Menu menu);
+
+    void menuDelete(Integer id);
+
+    Integer menuDeletRole(Integer id);
+
+    List<Menu> findByRoleId(int id);
 }

@@ -5,6 +5,7 @@ import com.guigu.pojo.MemberExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MemberMapper {
     long countByExample(MemberExample example);
@@ -28,4 +29,15 @@ public interface MemberMapper {
     int updateByPrimaryKeySelective(Member record);
 
     int updateByPrimaryKey(Member record);
+
+    List<Map<String, Object>> findSetmealCount();
+
+    Integer findMemberCountBeforeDate(String date);
+
+    int findMemberCountByDate(String date);
+
+    int findMemberCountAfterDate(String date);
+
+    int findMemberTotalCount();
+
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
@@ -11,7 +10,7 @@
        http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd">
     <context:component-scan base-package="com.guigu.controller"/>
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
@@ -34,15 +33,17 @@
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
     <dubbo:application name="health_web"/> <!--指定服务注册中心地址-->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"/> <!--批量扫描 dubbo2.6.0下，mvc不需要再扫controller 2.6.2 则mvc要扫一次controller -->
+    <dubbo:registry
+            address="zookeeper://127.0.0.1:2181"/> <!--批量扫描 dubbo2.6.0下，mvc不需要再扫controller 2.6.2 则mvc要扫一次controller -->
 <dubbo:reference interface="com.guigu.service.UserService" id="UserService" check="false"/>
  <dubbo:reference interface="com.guigu.service.CheckGroupService" id="CheckGroupService" check="false"/>
  <dubbo:reference interface="com.guigu.service.CheckItemService" id="CheckItemService" check="false"/>
  <dubbo:reference interface="com.guigu.service.SetmealService" id="SetmealService" check="false"/>
  <dubbo:reference interface="com.guigu.service.OrderSettingService" id="OrderSettingService" check="false"/>
- <dubbo:reference interface="com.guigu.service.OrderService" id="OrderService" check="false"/>
- <dubbo:reference interface="com.guigu.service.MemberService" id="MemberService" check="false"/>
+ <!--<dubbo:reference interface="com.guigu.service.MemberService" id="MemberService" check="false"/>-->
     <dubbo:annotation package="com.guigu.controller"/> <!--超时全局设置 10分钟 check=false 不检查服务提供方，开发阶段建议设置为false check=true 启动时检查服务提供方，如果服务提供方没有启动则报错 -->
+    <dubbo:annotation package="com.guigu"/>
+
     <dubbo:consumer check="false" retries="3"/> <!--文件上传组件-->
     <!-- 设置使用注解的类所在的包 -->
   <!--静态资源放行 -->
@@ -51,5 +52,6 @@
         <property name="prefix" value="/pages/"></property>
         <property name="suffix" value=".html"></property>
     </bean>
-    <import resource="classpath:spring-redis.xml"></import>
+    <import resource="classpath:spring-redis.xml"/>
+    <import resource="classpath:spring_security.xml"/>
 </beans>

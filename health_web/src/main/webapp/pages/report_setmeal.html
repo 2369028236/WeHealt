@@ -18,6 +18,7 @@
 
 <script type="text/javascript">
     var myChart1=echarts.init(document.getElementById('chart1'));
+    axios.get("/report/getSetmealReport").then((res)=>{
     axios.get("/ordersetting/getSetmealReport").then((res)=>{
         if(res.data.flag){
             myChart1.setOption({
@@ -55,6 +56,7 @@
         }else {
             alert(res.data.message);
         }
+    })
     });
 </script>
 

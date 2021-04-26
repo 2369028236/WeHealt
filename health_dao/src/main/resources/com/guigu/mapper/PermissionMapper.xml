@@ -193,4 +193,7 @@
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findAllPermission" resultType="Permission">
+    select * from t_permission
+  </select>
 </mapper>

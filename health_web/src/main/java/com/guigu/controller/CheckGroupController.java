@@ -8,6 +8,7 @@ import com.guigu.entity.QueryPageBean;
 import com.guigu.pojo.CheckGroup;
 import com.guigu.entity.Result;
 import com.guigu.service.CheckGroupService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +20,22 @@ public class CheckGroupController {
     @Reference
    private CheckGroupService checkGroupService;
 
+    @ResponseBody
+    @RequestMapping(value = "getAllCheckGroup")
+    @PreAuthorize("hasAuthority('CHECKGROUP_QUERY')")
+    public Object getAllCheckGroup(){
+      List<CheckGroup> list= checkGroupService.getAllCheckGroup();
+      if (!list.isEmpty()){
+          String s = JSONObject.toJSONString(list);
+          return s;
+      }else {
+          return null;
+      }
+    }
+
     /*** 添加检查组 * @param checkGroup * @param checkitemIds * @return */
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('CHECKGROUP_ADD')")
     public Result add(@RequestBody CheckGroup checkGroup, Integer[] checkitemIds) { // 调用业务服务
         checkGroupService.add(checkGroup, checkitemIds);
         // 响应结果
@@ -55,6 +70,7 @@ public class CheckGroupController {
      * 修改提交
      */
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('CHECKGROUP_EDIT')")
     public Result update(@RequestBody CheckGroup checkGroup, Integer[] checkitemIds){
 // 调用业务服务
         checkGroupService.update(checkGroup, checkitemIds);
@@ -67,6 +83,7 @@ public class CheckGroupController {
      * @return
      */
     @PostMapping("/deleteById")
+    @PreAuthorize("hasAuthority('CHECKGROUP_DELETE')")
     public Result deleteById(int id){
 //调用业务服务删除
         checkGroupService.deleteById(id);

@@ -6,6 +6,8 @@ import com.guigu.constant.MessageConstant;
 import com.guigu.pojo.CheckItem;
 import com.guigu.entity.Result;
 import com.guigu.service.CheckItemService;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class CheckItemController {
 
     @ResponseBody
     @RequestMapping("/add")
+    @PreAuthorize("hasAuthority('CHECKITEM_ADD')")
     public Result add(@RequestBody CheckItem checkItem) {
         checkItemService.add(checkItem);
         return new Result(true, MessageConstant.ADD_CHECKITEM_SUCCESS);
@@ -26,6 +29,7 @@ public class CheckItemController {
 
     @ResponseBody
     @RequestMapping("/getAllCheckItem")
+    @PreAuthorize("hasAuthority('CHECKITEM_QUERY')")
     public Object getAllCheckItem(Integer index,Integer pageSize,String queryCondition){
         if (index==null){
             index=1;
@@ -50,6 +54,7 @@ public class CheckItemController {
     }
 
     @PostMapping("/deleteById")
+    @PreAuthorize("hasAuthority('CHECKITEM_DELETE')")
     public Result deleteById(int id) {
         //调用业务服务
     try {
@@ -68,6 +73,7 @@ public class CheckItemController {
     }
     @ResponseBody
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('CHECKITEM_EDIT')")
     public Result update(@RequestBody CheckItem checkitem){
         checkItemService.update(checkitem);
         return new Result(true, MessageConstant.EDIT_CHECKITEM_SUCCESS);

@@ -37,14 +37,14 @@
                         <el-dropdown class="avatar-container right-menu-item" trigger="click">
                             <div class="avatar-wrapper">
                                 <img src="../img/user2-160x160.jpg" class="user-avatar">
-                                Jay.Liu
+                                {{loginUsername}}
                             </div>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item divided>
                                     <span style="display:block;">修改密码</span>
                                 </el-dropdown-item>
                                 <el-dropdown-item divided>
-                                        <span style="display:block;" @click="logOut()">退出</span>
+                                    <span style="display:block;"><a href="/logout">退出</a></span>
                                     </el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
@@ -82,6 +82,7 @@
     new Vue({
         el: '#app',
         data:{
+            loginUsername:'',
             menuList:[
                 {
                     "path": "1",
@@ -91,24 +92,25 @@
                 },
                 {
                     "path": "2",
-                    "title": "会员管理",
+                    "title": "权限管理",
                     "icon":"fa-user-md",
                     "children": [
                         {
                             "path": "/2-1",
-                            "title": "会员档案",
-                            "linkUrl":"member.html",
+                            "title": "用户管理",
+                            "linkUrl":"user.html",
                             "children":[]
                         },
                         {
                             "path": "/2-2",
-                            "title": "体检上传",
+                            "title": "权限管理",
+                            "linkUrl":"role.html",
                             "children":[]
                         },
                         {
                             "path": "/2-3",
-                            "title": "会员统计",
-                            "linkUrl":"all-item-list.html",
+                            "title": "菜单管理",
+                            "linkUrl":"menu.html",
                             "children":[]
                         },
                     ]
@@ -170,25 +172,44 @@
                     "children":[//是否有子菜单，若没有，则为[]
                         {
                             "path": "/5-1",
+                            "title": "预约套餐占比",
                             "title": "工作量统计",
                             "linkUrl":"/pages/report_setmeal.html",
                             "children":[]
                         },
                         {
                             "path": "/5-2",
-                            "title": "工作量",
+                            "title": "每天预约人数",
                             "linkUrl":"/pages/report_member.html",
+                            "children":[]
+                        },
+                        {
+                            "path": "/5-3",
+                            "title": "运营数据统计",
+                            "linkUrl":"/pages/report_business.html",
                             "children":[]
                         },
                     ]
                 }
             ]
+        },mounted(){
+            // 获取登陆用户名
+            axios.get('/user/getUsername').then(res => {
+                if(res.data.flag){
+                    this.loginUsername = res.data.data;
+                }else{
+                    this.$message.error(res.data.message);
+                }
+            })
         },
         methods:{
+
             logOut(){
                 location.href="../user/logOut";
             }
-        }
+        },
+
+
     });
     $(function() {
             var wd = 200;

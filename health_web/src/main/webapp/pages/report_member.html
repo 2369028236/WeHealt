@@ -18,6 +18,7 @@
             var orderDatas=[];
             var reservationss=[];
 
+            $.get("/report/selectByExample",function (data) {
             $.get("/ordersetting/selectByExample",function (data) {
                 var filter=[];
                 var myObject = JSON.parse(data, filter);
@@ -60,6 +61,7 @@
                 };
                 $("#dab").highcharts(options);
             })
+        })
         });
     </script>
 </body>

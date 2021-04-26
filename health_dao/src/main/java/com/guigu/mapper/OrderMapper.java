@@ -6,6 +6,7 @@ import com.guigu.pojo.OrderExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderMapper {
     long countByExample(OrderExample example);
@@ -30,5 +31,40 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
+    /**
+     * 今日预约数
+     * @param today
+     * @return
+     */
+    Integer findOrderCountByDate(String today);
+
+    /**
+     * 今日到诊数
+     * @param today
+     * @return
+     */
+    Integer findVisitsCountByDate(String today);
+
+    /**
+     * 多久之后的到诊数
+     * @param
+     * @return
+     */
+    Integer findVisitsCountAfterDate(@Param("startDate") String startDate, @Param("endDate") String endDate);
+
+    /**
+     * 热门套餐
+     * @return
+     */
+    List<Map<String,Object>> findHotSetmeal();
+
+    /**
+     * 统计日期范围内预约数量
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    int findOrderCountBetweenDate(@Param("startDate") String startDate, @Param("endDate")String endDate);
     List<OrderAndMember> getAll(String queryStr);
+
 }

@@ -11,10 +11,10 @@ import java.util.Map;
 public interface OrderSettingService {
     /**
      * 批量导入
-     *
      * @param orderSettingList
      */
     void add(List<OrderSetting> orderSettingList) throws HealthException;
+
     List<Map> getOrderSettingByMonth(String date);
     // 通过日期修改可预约人数，这里要抛出自定义的异常
     void editNumberByDate(OrderSetting orderSetting) throws HealthException;
@@ -29,6 +29,7 @@ public interface OrderSettingService {
     List<OrderSetting> selectByExample1(OrderSettingExample example) throws HealthException;
 
     List<Map<String, Object>> findSetmealCount();
+
 }
 
 

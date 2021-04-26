@@ -12,6 +12,7 @@ import com.guigu.pojo.CheckItem;
 import com.guigu.pojo.CheckItemExample;
 import com.guigu.service.CheckItemService;
 import com.mysql.jdbc.StringUtils;
+import org.springframework.web.bind.annotation.RestController;
 
 
 import javax.annotation.Resource;
@@ -39,7 +40,8 @@ public class CheckItemServiceImpl implements CheckItemService {
     }
 
     @Override
-    public void add(CheckItem checkItem) {
+    public void add(CheckItem checkItem)
+    {
         checkItemMapper.insertSelective(checkItem);
     }
 

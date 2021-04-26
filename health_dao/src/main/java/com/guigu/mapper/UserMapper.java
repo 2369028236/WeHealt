@@ -1,11 +1,13 @@
 package com.guigu.mapper;
 
+import com.github.pagehelper.Page;
 import com.guigu.pojo.User;
 import com.guigu.pojo.UserAndOrder;
 import com.guigu.pojo.UserExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
     long countByExample(UserExample example);
@@ -29,6 +31,13 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    /**
+     * 根据登陆用户名称查询用户权限信息
+     * @param username
+     * @return
+     */
+    User findByUsername(String username);
     /**
      * 登陆 username
      * @param username
@@ -64,4 +73,20 @@ public interface UserMapper {
 
     List<UserAndOrder> getAll(Integer userId);
     int deleteByOrderId(Integer orderId);
+
+    Page<User> findPage(String queryString);
+
+    void add(User user);
+
+    void setUserAndRole(Map<String, Integer> map);
+
+    User findById(Integer id);
+
+    void edit(User user);
+
+    void deleteAssociation(Integer id);
+
+    List<Integer> findRoleIdsByUserId(Integer id);
+
+    void delete(Integer id);
 }

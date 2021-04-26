@@ -1,6 +1,10 @@
 package com.guigu.pojo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Menu implements Serializable {
     private Integer id;
@@ -121,5 +125,20 @@ public class Menu implements Serializable {
                 ", parentMenuId=" + parentMenuId +
                 ", level=" + level +
                 '}';
+    }
+
+    private Set<Role> roles = new HashSet<Role>(0);//角色集合
+    private List<Menu> children = new ArrayList<>();//子菜单集合
+    public Set<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+    public List<Menu> getChildren() {
+        return children;
+    }
+    public void setChildren(List<Menu> children) {
+        this.children = children;
     }
 }
